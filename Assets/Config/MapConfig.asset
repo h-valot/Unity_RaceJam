@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21083a80ceb3e47438c2f66cc9a08839, type: 3}
   m_Name: MapConfig
   m_EditorClassIdentifier: 
-  mapSize: 5
-  availabilityNodeAmount: 0.5
+  mapSize: 10
+  availabilityPercentage: 0.218
