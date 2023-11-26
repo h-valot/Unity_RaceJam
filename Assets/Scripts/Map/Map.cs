@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public class Map
 {
-    public List<Node> nodes;
+    public List<Cell> nodes;
     
-    public Map(List<Node> nodes)
+    public Map(List<Cell> nodes)
     {
         this.nodes = nodes;
     }

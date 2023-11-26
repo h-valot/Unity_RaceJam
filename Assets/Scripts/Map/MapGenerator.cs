@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class MapGenerator
 {
-    private static List<List<Node>> _nodes = new List<List<Node>>();
+    private static List<List<Cell>> _cells = new List<List<Cell>>();
     private static MapConfig _mapConfig;
     
     public static Map GetMap(MapConfig newMapConfig)
@@ -17,36 +17,36 @@ public static class MapGenerator
         
         _mapConfig = newMapConfig;
         
-        // generate all nodes
-        GenerateNodes();
+        // generate all cells
+        GenerateCells();
         
         // a* pathfinding
         var path = GeneratePath();
 
-        // returns a list with nodes that form the circuit
+        // returns a list with cells that form the circuit
         return new Map(path);
     }
 
-    private static void GenerateNodes()
+    private static void GenerateCells()
     {
         for (int x = 0; x < _mapConfig.mapSize; x++)
         {
             for (int y = 0; y < _mapConfig.mapSize; y++)
             {
-                _nodes[x][y] = new Node();
                 // randomly set their availability
+                _cells[x][y] = new Cell(x, y);
             }
         }
     }
 
-    private static List<Node> GeneratePath()
+    private static List<Cell> GeneratePath()
     {
-        // select the starting and the ending node based on settings in config
+        // select the starting and the ending cell based on settings in config
         
-        // generate a* path to get the list of node from the starting to the ending node
-        // the a* must avoid unavailable nodes 
-        // if it can't find a way thought nodes, regenerate nodes
+        // generate a* path to get the list of cell from the starting to the ending node
+        // the a* must avoid unavailable cells 
+        // if it can't find a way thought cells, regenerate cells
 
-        return new List<Node>();
+        return new List<Cell>();
     }
 }

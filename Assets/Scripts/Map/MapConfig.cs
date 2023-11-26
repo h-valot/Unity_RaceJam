@@ -7,7 +7,7 @@ public class MapConfig : ScriptableObject
     [Tooltip("Lenght of a square map")]
     public int mapSize;
 
-    [Header("NODES")]
-    [Tooltip("Percentage of a node to be available")]
-    [Range(0f, 1f)] public float availabilityNodeAmount;
+    [Header("CELLS")]
+    [Tooltip("Percentage of a cell to be available")]
+    [Range(0f, 1f)] public float availabilityPercentage;
 }
