@@ -1,18 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Map : MonoBehaviour
+public class Map
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Node> nodes;
+    
+    public Map(List<Node> nodes)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.nodes = nodes;
     }
 }
