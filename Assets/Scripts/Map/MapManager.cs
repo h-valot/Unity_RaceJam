@@ -4,6 +4,7 @@ public class MapManager : MonoBehaviour
 {
     [Header("REFERENCES")]
     public MapConfig mapConfig;
+    public MapView mapView;
     
     private Map _currentMap;
     
@@ -15,5 +16,6 @@ public class MapManager : MonoBehaviour
     private void GenerateNewMap()
     {
         _currentMap = MapGenerator.GetMap(mapConfig);
+        mapView.ShowMap(_currentMap);
     }
 }

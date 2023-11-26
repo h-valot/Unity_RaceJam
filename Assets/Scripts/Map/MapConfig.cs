@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "MapConfig", menuName = "Config/Map", order = 1)]
 public class MapConfig : ScriptableObject
 {
     [Header("MAP")]
