@@ -9,7 +9,7 @@ namespace Script.AI
         
         public UnityEvent<AIStimulusResult> onReceiveStimulus;
 
-        public void Invoke(AIStimulus stimulus, AIStimulusResult stimulusResult)
+        public void CallBack(AIStimulus stimulus, AIStimulusResult stimulusResult)
         {
             if (stimulus.name == aiStimulus.name)
             {
