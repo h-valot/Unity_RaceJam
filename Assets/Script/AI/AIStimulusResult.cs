@@ -7,5 +7,9 @@ namespace Script.AI
     {
         public Transform sourceTransform;
         public List<Transform> otherTansforms;
+        /// <summary>
+        /// Contain any kind of value: https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/pattern-matching
+        /// </summary>
+        public List<object> objects = new List<object>();
     }
 }
