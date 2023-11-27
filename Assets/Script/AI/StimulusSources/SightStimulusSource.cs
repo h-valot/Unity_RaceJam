@@ -36,11 +36,11 @@ namespace Script.AI.StimulusSources
             }
         }
         
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             var ray = new Ray();
-            ray.origin = this.transform.position;
-            ray.direction = (other.transform.position - this.transform.position).normalized;
+            ray.origin = this.bodyTransform.position;
+            ray.direction = (other.transform.position - this.bodyTransform.position).normalized;
             
             var hits = Physics.RaycastAll(ray);
 
@@ -65,7 +65,19 @@ namespace Script.AI.StimulusSources
 
                     if (!hitIsTransparent)
                     {
-                        this.OnSight(hits[hit].transform);
+                        var haveRequiredTag = false;
+                        foreach (var requireTag in this.searchedTags)
+                        {
+                            if (hits[hit].transform.CompareTag(requireTag))
+                            {
+                                haveRequiredTag = true;
+                            }
+                        }
+
+                        if (haveRequiredTag)
+                        {
+                            this.OnSight(hits[hit].transform);
+                        }
 
                         // Call on sight only for the first element
                         return;
@@ -78,6 +90,8 @@ namespace Script.AI.StimulusSources
         {
             _outputAIStimulusResult.sourceTransform = this.bodyTransform;
             _outputAIStimulusResult.otherTansforms.Add(other);
+            this.stimulusSource.EmmitStimulus(this._outputAIStimulusResult);
+            _outputAIStimulusResult = new AIStimulusResult();
         }
     }
 }
