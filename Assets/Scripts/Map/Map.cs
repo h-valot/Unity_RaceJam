@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 public class Map
 {
-    public List<Cell> nodes;
+    public List<Cell> cells;
     
-    public Map(List<Cell> nodes)
+    public Map(List<Cell> cells)
     {
-        this.nodes = nodes;
+        this.cells = cells;
     }
 }

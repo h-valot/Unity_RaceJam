@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using List;
 using UnityEngine;
 
 public static class MapGenerator
 {
-    private static List<List<Cell>> _cells = new List<List<Cell>>();
-    private static List<List<Cell>> _availableCells = new List<List<Cell>>();
+    private static readonly List<List<Cell>> _cells = new List<List<Cell>>();
+    private static List<Cell> _path = new List<Cell>();
     private static MapConfig _mapConfig;
     
     public static Map GetMap(MapConfig newMapConfig)
@@ -18,72 +19,74 @@ public static class MapGenerator
         }
         
         _mapConfig = newMapConfig;
+        int iterationAmount = 0;
         
-        // generate all cells
         GenerateCells();
+        VisitCell(null, _cells[0][0]);
         
-        // a* pathfinding
-        var path = GeneratePath();
-
+        Debug.Log($"MAP GENERATOR: path successfully generated with {iterationAmount} tries. there are {_path.Count} cells in the path.");
+        
         // returns a list with cells that form the circuit
-        return new Map(path);
+        return new Map(_path);
     }
 
     private static void GenerateCells()
     {
         for (int y = 0; y < _mapConfig.mapSize; y++)
         {
-            _cells.Add(new List<Cell>());
-            _availableCells.Add(new List<Cell>());
+            _cells.Add(new List<Cell>()); 
             for (int x = 0; x < _mapConfig.mapSize; x++)
             {
-                bool isAvailable = Random.Range(0f, 1f) <= _mapConfig.availabilityPercentage;
-                if (isAvailable) _availableCells[y].Add(new Cell(x, y, true));
-                _cells[y].Add(new Cell(x, y, isAvailable));
+                _cells[y].Add(new Cell(x, y));
             }
         }
     }
 
-    private static List<Cell> GeneratePath()
+    private static void VisitCell(Cell previousCell, Cell currentCell)
     {
-        // select the starting and the ending cell based on settings in config
-        Cell startingCell = GetStartingCell();
-        Cell endingCell = GetEndingCell();
+        var nextCell = GetNewUnvisitedCell(currentCell);
 
-        Debug.Log("MAP GENERATOR:" +
-                  $"\r\nStarting cell {startingCell.x}, {startingCell.y} availability {startingCell.isAvailable}" +
-                  $"\r\nEnding cell {endingCell.x}, {endingCell.y} availability {endingCell.isAvailable}");
+        if (nextCell != null)
+        {
+            VisitCell(currentCell, nextCell);
+        }
+    }
+
+    private static Cell GetNewUnvisitedCell(Cell currentCell)
+    {
+        List<Cell> unvisitedCells = GetUnvisitedCells(currentCell);
+        unvisitedCells.Shuffle();
+        return unvisitedCells.FirstOrDefault();
+    }
+    
+    private static List<Cell> GetUnvisitedCells(Cell currentCell)
+    {
+        List<Cell> output = new List<Cell>();
         
-        // generate a* path to get the list of cell from the starting to the ending node
-        // the a* must avoid unavailable cells 
-        // if it can't find a way thought cells, regenerate cells
-
-        return new List<Cell>();
-    }
-
-    private static Cell GetStartingCell()
-    {
-        Cell output = null;
-        foreach (List<Cell> cells in _availableCells.AsEnumerable()!.Reverse())
+        int row = currentCell.y;
+        int col = currentCell.x;
+        
+        if (row + 1 < _mapConfig.mapSize && _cells[col][row + 1].isVisited)
         {
-            foreach (Cell cell in cells.AsEnumerable().Reverse())
-            {
-                output = cell;
-            }
+            output.Add(_cells[col][row + 1]);
         }
+        
+        if (row - 1 >= 0 && _cells[col][row - 1].isVisited)
+        {
+            output.Add(_cells[col][row - 1]);
+        }
+        
+        if (col - 1 >= 0 && _cells[col - 1][row].isVisited)
+        {
+            output.Add(_cells[col - 1][row]);
+        }
+        
+        if (col + 1 < _mapConfig.mapSize && _cells[col + 1][row].isVisited)
+        {
+            output.Add(_cells[col + 1][row]);
+        }
+        
         return output;
     }
 
-    private static Cell GetEndingCell()
-    {
-        Cell output = null;
-        foreach (List<Cell> cells in _availableCells)
-        {
-            foreach (Cell cell in cells)
-            {
-                output = cell;
-            }
-        }
-        return output;
-    }
 }
