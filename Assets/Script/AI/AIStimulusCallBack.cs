@@ -11,9 +11,12 @@ namespace Script.AI
 
         public void CallBack(AIStimulus stimulus, AIStimulusResult stimulusResult)
         {
-            if (stimulus.name == aiStimulus.name)
-            {
-                onReceiveStimulus?.Invoke(stimulusResult);
+            foreach (var tag in aiStimulus.tags) {
+                if (stimulus.HaveTag(tag))
+                {
+                    onReceiveStimulus?.Invoke(stimulusResult);
+                    return;
+                }
             }
         }
     }
