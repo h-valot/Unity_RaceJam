@@ -1,92 +1,140 @@
 using System.Collections.Generic;
 using System.Linq;
-using List;
 using UnityEngine;
 
-public static class MapGenerator
+public class MapGenerator : MonoBehaviour
 {
-    private static readonly List<List<Cell>> _cells = new List<List<Cell>>();
-    private static List<Cell> _path = new List<Cell>();
-    private static MapConfig _mapConfig;
+    public Cell cellPrefab;
+    public MapConfig mapConfig;
     
-    public static Map GetMap(MapConfig newMapConfig)
+    private Cell[,] _mapGrid;
+    private List<Cell> _cells = new List<Cell>();
+    private List<Cell> _circuit = new List<Cell>();
+
+    void Start()
     {
-        // exit if the new map config is empty
-        if (newMapConfig == null)
-        {
-            Debug.LogError("MAP GENERATOR: map config is null");
-            return null;
-        }
-        
-        _mapConfig = newMapConfig;
-        int iterationAmount = 0;
-        
-        GenerateCells();
-        VisitCell(null, _cells[0][0]);
-        
-        Debug.Log($"MAP GENERATOR: path successfully generated with {iterationAmount} tries. there are {_path.Count} cells in the path.");
-        
-        // returns a list with cells that form the circuit
-        return new Map(_path);
+        InitializeMapGrid();
+        GenerateMap(null, _mapGrid[0, 0]);
+        GenerateCircuit();
     }
 
-    private static void GenerateCells()
+    private void InitializeMapGrid()
     {
-        for (int y = 0; y < _mapConfig.mapSize; y++)
+        _mapGrid = new Cell[mapConfig.mapSize, mapConfig.mapSize];
+        for (int x = 0; x < mapConfig.mapSize; x++)
         {
-            _cells.Add(new List<Cell>()); 
-            for (int x = 0; x < _mapConfig.mapSize; x++)
+            for (int z = 0; z < mapConfig.mapSize; z++)
             {
-                _cells[y].Add(new Cell(x, y));
+                _mapGrid[x, z] = Instantiate(cellPrefab, new Vector3(x, 0, z), Quaternion.identity, transform);
             }
         }
     }
 
-    private static void VisitCell(Cell previousCell, Cell currentCell)
+    private void GenerateMap(Cell previousCell, Cell currentCell)
     {
-        var nextCell = GetNewUnvisitedCell(currentCell);
+        // update display of the current cell
+        currentCell.Visit();
+        currentCell.previous = previousCell;
+        _cells.Add(currentCell);
+        
+        // generate next cells
+        Cell nextCell;
+        do {
+            nextCell = GetNextUnvisitedCell(currentCell);
+            currentCell.next = nextCell;
+            if (nextCell != null) GenerateMap(currentCell, nextCell);
+        } while (nextCell != null);
+    }
 
-        if (nextCell != null)
+    private Cell GetNextUnvisitedCell(Cell currentCell)
+    {
+        var unvisitedCells = GetUnvisitedCells(currentCell);
+        return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
+    }
+
+    private IEnumerable<Cell> GetUnvisitedCells(Cell currentCell)
+    {
+        int x = (int)currentCell.transform.position.x;
+        int z = (int)currentCell.transform.position.z;
+
+        if (x + 1 < mapConfig.mapSize)
         {
-            VisitCell(currentCell, nextCell);
+            var cellToRight = _mapGrid[x + 1, z];
+            if (cellToRight.isVisited == false) yield return cellToRight;
+        }
+
+        if (x - 1 >= 0)
+        {
+            var cellToLeft = _mapGrid[x - 1, z];
+            if (cellToLeft.isVisited == false) yield return cellToLeft;
+        }
+
+        if (z + 1 < mapConfig.mapSize)
+        {
+            var cellToFront = _mapGrid[x, z + 1];
+            if (cellToFront.isVisited == false) yield return cellToFront;
+        }
+
+        if (z - 1 >= 0)
+        {
+            var cellToBack = _mapGrid[x, z - 1];
+            if (cellToBack.isVisited == false) yield return cellToBack;
         }
     }
 
-    private static Cell GetNewUnvisitedCell(Cell currentCell)
+    private void ClearWalls(Cell previousCell, Cell currentCell)
     {
-        List<Cell> unvisitedCells = GetUnvisitedCells(currentCell);
-        unvisitedCells.Shuffle();
-        return unvisitedCells.FirstOrDefault();
+        if (previousCell == null)
+        {
+            return;
+        }
+
+        if (previousCell.transform.position.x < currentCell.transform.position.x)
+        {
+            previousCell.ClearRightWall();
+            currentCell.ClearLeftWall();
+            return;
+        }
+
+        if (previousCell.transform.position.x > currentCell.transform.position.x)
+        {
+            previousCell.ClearLeftWall();
+            currentCell.ClearRightWall();
+            return;
+        }
+
+        if (previousCell.transform.position.z < currentCell.transform.position.z)
+        {
+            previousCell.ClearFrontWall();
+            currentCell.ClearBackWall();
+            return;
+        }
+
+        if (previousCell.transform.position.z > currentCell.transform.position.z)
+        {
+            previousCell.ClearBackWall();
+            currentCell.ClearFrontWall();
+            return;
+        }
     }
     
-    private static List<Cell> GetUnvisitedCells(Cell currentCell)
+    private void GenerateCircuit()
     {
-        List<Cell> output = new List<Cell>();
-        
-        int row = currentCell.y;
-        int col = currentCell.x;
-        
-        if (row + 1 < _mapConfig.mapSize && _cells[col][row + 1].isVisited)
-        {
-            output.Add(_cells[col][row + 1]);
-        }
-        
-        if (row - 1 >= 0 && _cells[col][row - 1].isVisited)
-        {
-            output.Add(_cells[col][row - 1]);
-        }
-        
-        if (col - 1 >= 0 && _cells[col - 1][row].isVisited)
-        {
-            output.Add(_cells[col - 1][row]);
-        }
-        
-        if (col + 1 < _mapConfig.mapSize && _cells[col + 1][row].isVisited)
-        {
-            output.Add(_cells[col + 1][row]);
-        }
-        
-        return output;
-    }
+        // get circuit based on size
+        int circuitSize = mapConfig.circuitSize > _cells.Count ? _cells.Count : mapConfig.circuitSize;
+        _circuit = _cells.Take(circuitSize).ToList();
 
+        // clear walls of selected cells
+        foreach (Cell cell in _circuit)
+        {
+            cell.isInstantiate = true;
+            ClearWalls(cell.previous, cell);
+        }
+
+        // hide all cells that aren't in the circuit
+        foreach (Cell cell in _cells)
+        {
+            if (_circuit.All(circuitCell => circuitCell != cell)) cell.Hide();
+        }
+    }
 }

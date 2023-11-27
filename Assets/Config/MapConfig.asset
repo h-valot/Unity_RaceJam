@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: MapConfig
   m_EditorClassIdentifier: 
   mapSize: 10
-  minPathSize: 5
-  maxGenerationTry: 1000
-  availabilityPercentage: 0.5
+  circuitSize: 16
