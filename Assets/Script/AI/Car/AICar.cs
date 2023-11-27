@@ -18,6 +18,9 @@ namespace Script.AI.Car
         [SerializeField] 
         private float speed = 1.0f;
 
+        [SerializeField] 
+        private Transform target;
+
         private Vector3 _direction;
 
         private void Start()
@@ -44,16 +47,19 @@ namespace Script.AI.Car
             {
                 foreach (var other in aiStimulusResult.otherTansforms)
                 {
-                    this._direction += (other.position - this.transform.position).normalized;
+                    this._direction += other.position - this.transform.position;
                 }
-
-                this._direction.Normalize();
             }
         }
 
         private void FixedUpdate()
         {
-            this.rigidBody.AddRelativeForce(this._direction * speed, ForceMode.Acceleration);
+            this._direction += (target.position - this.transform.position).normalized;
+            
+            this._direction.y = 0.0f;
+            this._direction.Normalize();
+            this.rigidBody.velocity = this._direction * speed;
+            this._direction = Vector3.zero;
         }
     }
 }
