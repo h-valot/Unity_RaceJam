@@ -8,13 +8,15 @@ namespace Script.AI
         public AIStimulus aiStimulus;
         
         public UnityEvent<AIStimulusResult> onReceiveStimulus;
+        public UnityEvent onSight;
 
         public void CallBack(AIStimulus stimulus, AIStimulusResult stimulusResult)
         {
             foreach (var tag in aiStimulus.tags) {
                 if (stimulus.HaveTag(tag))
                 {
-                    onReceiveStimulus?.Invoke(stimulusResult);
+                    this.onReceiveStimulus?.Invoke(stimulusResult);
+                    this.onSight?.Invoke();
                     return;
                 }
             }
