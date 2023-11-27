@@ -2,18 +2,12 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    public int x, z;
-    public GameObject leftWall, rightWall, frontWall, backWall, center;
-    public bool isInstantiate;
+    public GameObject leftWall, rightWall, frontWall, backWall;
     
     [HideInInspector] public Cell previous;
-    [HideInInspector] public Cell next;
     [HideInInspector] public bool isVisited;
 
-    public void Visit()
-    {
-        isVisited = true;
-    }
+    public void Visit() => isVisited = true;
 
     public void Hide()
     {

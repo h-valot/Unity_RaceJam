@@ -18,6 +18,9 @@ public class MapGenerator : MonoBehaviour
         GenerateCircuit();
     }
 
+    /// <summary>
+    /// Creates a map of cells with a size register in map config
+    /// </summary>
     private void InitializeMapGrid()
     {
         _mapGrid = new Cell[mapConfig.mapSize, mapConfig.mapSize];
@@ -30,6 +33,9 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Adds a cell to the cells list. Calls itself to add the next cell.
+    /// </summary>
     private void GenerateMap(Cell previousCell, Cell currentCell)
     {
         // update display of the current cell
@@ -41,17 +47,22 @@ public class MapGenerator : MonoBehaviour
         Cell nextCell;
         do {
             nextCell = GetNextUnvisitedCell(currentCell);
-            currentCell.next = nextCell;
             if (nextCell != null) GenerateMap(currentCell, nextCell);
         } while (nextCell != null);
     }
 
+    /// <summary>
+    /// Returns a randomly selected cell from the nearby cells
+    /// </summary>
     private Cell GetNextUnvisitedCell(Cell currentCell)
     {
         var unvisitedCells = GetUnvisitedCells(currentCell);
         return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
     }
 
+    /// <summary>
+    /// Returns a ienumerable list of cells that contains every nearby unvisited cells
+    /// </summary>
     private IEnumerable<Cell> GetUnvisitedCells(Cell currentCell)
     {
         int x = (int)currentCell.transform.position.x;
@@ -82,6 +93,9 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clears walls that obstruct other cells
+    /// </summary>
     private void ClearWalls(Cell previousCell, Cell currentCell)
     {
         if (previousCell == null)
@@ -118,6 +132,10 @@ public class MapGenerator : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Generates a circuit as a list of cell of a size based on the map config
+    /// Clears walls on map to display the race circuit and hides unused cells 
+    /// </summary>
     private void GenerateCircuit()
     {
         // get circuit based on size
@@ -127,7 +145,6 @@ public class MapGenerator : MonoBehaviour
         // clear walls of selected cells
         foreach (Cell cell in _circuit)
         {
-            cell.isInstantiate = true;
             ClearWalls(cell.previous, cell);
         }
 
