@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MapConfig
   m_EditorClassIdentifier: 
   mapSize: 10
-  availabilityPercentage: 0.218
+  availabilityPercentage: 0.5
