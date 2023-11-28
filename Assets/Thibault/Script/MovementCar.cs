@@ -9,8 +9,13 @@ public class MovementCar : MonoBehaviour
     [SerializeField] private float _deceleration = 0.05f;
     [SerializeField] private float _maxSpeed = 160f;
     private float _currentSpeed = 0f;
-    
-    
+
+
+    public float CurrentSpeed
+    {
+        get => _currentSpeed;
+    }
+
     public void Accelerate()
     {
         _currentSpeed = Mathf.Min(_currentSpeed + _acceleration, _maxSpeed);
