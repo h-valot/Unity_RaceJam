@@ -68,8 +68,8 @@ namespace Map
         /// </summary>
         private IEnumerable<Cell> GetUnvisitedCells(Cell currentCell)
         {
-            int x = (int)currentCell.transform.position.x;
-            int z = (int)currentCell.transform.position.z;
+            int x = (int)currentCell.transform.position.x / mapConfig.sizeScaler;
+            int z = (int)currentCell.transform.position.z / mapConfig.sizeScaler;
 
             if (x + 1 < mapConfig.mapSize)
             {
