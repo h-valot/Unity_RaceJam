@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: 10
   circuitSize: 10
+  sizeScaler: 20

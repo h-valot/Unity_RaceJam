@@ -8,4 +8,6 @@ public class MapConfig : ScriptableObject
     public int mapSize;
     [Tooltip("Number of cell that will compose the final circuit")]
     public int circuitSize;
+
+    public int sizeScaler = 1;
 }

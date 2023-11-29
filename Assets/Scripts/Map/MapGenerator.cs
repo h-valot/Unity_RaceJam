@@ -30,7 +30,8 @@ namespace Map
             {
                 for (int z = 0; z < mapConfig.mapSize; z++)
                 {
-                    _mapGrid[x, z] = Instantiate(cellPrefab, new Vector3(x, 0, z), Quaternion.identity, transform);
+                    _mapGrid[x, z] = Instantiate(cellPrefab, new Vector3(x * mapConfig.sizeScaler, 0, z * mapConfig.sizeScaler), Quaternion.identity, transform);
+                    _mapGrid[x, z].transform.localScale *= mapConfig.sizeScaler;
                 }
             }
         }
@@ -72,25 +73,25 @@ namespace Map
 
             if (x + 1 < mapConfig.mapSize)
             {
-                var cellToRight = _mapGrid[x + 1, z];
+                Cell cellToRight = _mapGrid[x + 1, z];
                 if (cellToRight.isVisited == false) yield return cellToRight;
             }
 
             if (x - 1 >= 0)
             {
-                var cellToLeft = _mapGrid[x - 1, z];
+                Cell cellToLeft = _mapGrid[x - 1, z];
                 if (cellToLeft.isVisited == false) yield return cellToLeft;
             }
 
             if (z + 1 < mapConfig.mapSize)
             {
-                var cellToFront = _mapGrid[x, z + 1];
+                Cell cellToFront = _mapGrid[x, z + 1];
                 if (cellToFront.isVisited == false) yield return cellToFront;
             }
 
             if (z - 1 >= 0)
             {
-                var cellToBack = _mapGrid[x, z - 1];
+                Cell cellToBack = _mapGrid[x, z - 1];
                 if (cellToBack.isVisited == false) yield return cellToBack;
             }
         }
