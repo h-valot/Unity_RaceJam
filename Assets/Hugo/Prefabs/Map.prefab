@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5886780525379893214}
-  - component: {fileID: 1863291284116993717}
+  - component: {fileID: 3796206251800221972}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7238946116107920700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1863291284116993717
+--- !u!114 &3796206251800221972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

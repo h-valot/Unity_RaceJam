@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MapConfig
   m_EditorClassIdentifier: 
   mapSize: 10
-  circuitSize: 16
+  circuitSize: 10
