@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4446430455112683301}
-  - component: {fileID: 6730396408330194163}
+  - component: {fileID: 7771714752286189926}
   m_Layer: 0
   m_Name: Wheels
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 5335781543793229097}
   m_Father: {fileID: 4608566252453952920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6730396408330194163
+--- !u!114 &7771714752286189926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 514902082947560427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaabdfd9d3b00c447a59eb0553f0cfe6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4688aea11d9b9be4db510b9939424576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &815241079287848201
@@ -338,11 +338,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4608566252453952920}
-  - component: {fileID: 7636294827195391050}
-  - component: {fileID: 1810531382058987833}
-  - component: {fileID: 7522212955913991054}
   - component: {fileID: 867999414194342543}
   - component: {fileID: 8157346438385757020}
+  - component: {fileID: 6806330367568408422}
+  - component: {fileID: 4072636064853733164}
+  - component: {fileID: 5038565639026546683}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -368,48 +368,6 @@ Transform:
   - {fileID: 4446430455112683301}
   m_Father: {fileID: 8139614211880378561}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7636294827195391050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5592489916072190721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8f55996dab4d44086c085a6783efb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _managerCar: {fileID: 1810531382058987833}
---- !u!114 &1810531382058987833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5592489916072190721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e926bf98ea2d249b1591c4858abe82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementCar: {fileID: 7522212955913991054}
-  _wheelsManager: {fileID: 6730396408330194163}
---- !u!114 &7522212955913991054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5592489916072190721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7197d54316280b3458bebd36c6b3d733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceleration: 0.1
-  _deceleration: 0.05
-  _maxSpeed: 160
 --- !u!54 &867999414194342543
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -458,6 +416,48 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9044538, y: 1.3787026, z: 4.692024}
   m_Center: {x: 0.8506522, y: 0.60135734, z: -7.405609}
+--- !u!114 &6806330367568408422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ad77ef2e28d8b4797aee7f4532c601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _managerCar: {fileID: 5038565639026546683}
+--- !u!114 &4072636064853733164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4769296f7c44d8c48bf7339efd92fe9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _acceleration: 0.1
+  _deceleration: 0.05
+  _maxSpeed: 160
+--- !u!114 &5038565639026546683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c3d148340961745bb24dd8c0f5f0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementCar: {fileID: 4072636064853733164}
+  _wheelsManager: {fileID: 7771714752286189926}
 --- !u!1 &6748926078577361102
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 68868637593699097}
   - component: {fileID: 6814717979633298508}
   - component: {fileID: 2382112377405555045}
-  - component: {fileID: 6285622974486091214}
+  - component: {fileID: 6227325172825850626}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -685,7 +685,7 @@ Transform:
   m_GameObject: {fileID: 8958428428030941243}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.007, y: 2.29, z: -6.39}
+  m_LocalPosition: {x: 0.007, y: 2.48, z: -6.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -750,7 +750,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8958428428030941243}
   m_Enabled: 1
---- !u!114 &6285622974486091214
+--- !u!114 &6227325172825850626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -759,13 +759,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8958428428030941243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b3aaec8922a7064e82036ea5b2bb8cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ae0b2ec99f05514d885b246ec2a1836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 4608566252453952920}
-  carMovementScript: {fileID: 7522212955913991054}
-  offset: {x: 0.18, y: 2.8, z: -10.1}
-  lookSpeed: 10
+  carMovementScript: {fileID: 4072636064853733164}
+  offset: {x: 0.007, y: 2.48, z: -6.39}
+  lookSpeed: 5
 --- !u!1 &9200548682925073218
 GameObject:
   m_ObjectHideFlags: 0
