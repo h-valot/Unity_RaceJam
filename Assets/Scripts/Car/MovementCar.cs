@@ -157,8 +157,8 @@ public class MovementCar : MonoBehaviour
     public float maxAcceleration = 30.0f;
     public float brakeAcceleration = 50.0f;
 
-    public float turnSensitivity = 1.0f;
-    public float maxSteerAngle = 30.0f;
+    public float turnSensitivity;
+    public float maxSteerAngle;
 
     //public Vector3 _centerOfMass;
 
@@ -175,7 +175,6 @@ public class MovementCar : MonoBehaviour
         carRb = GetComponent<Rigidbody>();
         //carRb.centerOfMass = _centerOfMass;
         carRb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-
     }
 
     void Update()
@@ -203,10 +202,24 @@ public class MovementCar : MonoBehaviour
 
     void GetInputs()
     {
-        if(control == ControlMode.Keyboard)
+        //if(control == ControlMode.Keyboard)
+        //{
+        //    moveInput = Input.GetAxis("Vertical");
+        //    steerInput = Input.GetAxis("Horizontal");
+        //}
+        
+        switch(control)
         {
-            moveInput = Input.GetAxis("Vertical");
-            steerInput = Input.GetAxis("Horizontal");
+            case ControlMode.Keyboard:
+                moveInput = Input.GetAxis("Vertical");
+                steerInput = Input.GetAxis("Horizontal");
+                break;
+            case ControlMode.Buttons:
+                // Les noms des axes pour la manette peuvent varier selon votre configuration et le type de manette.
+                // "Horizontal" et "Vertical" fonctionnent pour les sticks analogiques de la plupart des manettes par défaut.
+                moveInput = Input.GetAxis("Joystick Vertical");
+                steerInput = Input.GetAxis("Joystick Horizontal");
+                break;
         }
     }
 
