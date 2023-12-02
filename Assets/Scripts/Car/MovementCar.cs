@@ -4,11 +4,6 @@ using System.Collections.Generic;
 
 public class MovementCar : MonoBehaviour
 {
-    public enum ControlMode
-    {
-        Keyboard,
-        Buttons
-    };
 
     public enum Axel
     {
@@ -24,35 +19,32 @@ public class MovementCar : MonoBehaviour
         public Axel axel;
     }
 
-    public ControlMode control;
+    [SerializeField] private float maxAcceleration = 30.0f;
+    [SerializeField] private float brakeAcceleration = 50.0f;
 
-    public float maxAcceleration = 30.0f;
-    public float brakeAcceleration = 50.0f;
-
-    public float turnSensitivity;
-    public float maxSteerAngle;
+    [SerializeField] private float turnSensitivity;
+    [SerializeField] private float maxSteerAngle;
 
 
-    public List<Wheel> wheels;
+    [SerializeField] private List<Wheel> wheels;
 
-    float moveInput;
-    float steerInput;
-
+    private float moveInput;
+    private float steerInput;
     private Rigidbody carRb;
 
 
-    void Start()
+    private void Start()
     {
         carRb = GetComponent<Rigidbody>();
         carRb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
     }
 
-    void Update()
+    private void Update()
     {
         AnimateWheels();
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         Move();
         Steer();
@@ -66,7 +58,10 @@ public class MovementCar : MonoBehaviour
         steerInput = horizontalInput;
     }
 
-    void Move()
+    
+    
+    // Move Car
+    private void Move()
     {
         foreach(var wheel in wheels)
         {
@@ -74,7 +69,10 @@ public class MovementCar : MonoBehaviour
         }
     }
 
-    void Steer()
+    
+    
+    // Turn the car
+    private void Steer()
     {
         foreach(var wheel in wheels)
         {
@@ -86,12 +84,14 @@ public class MovementCar : MonoBehaviour
         }
     }
 
-    void Brake()
+    // Stop the car
+    private void Brake()
     {
         if (moveInput == 0)
         {
             foreach (var wheel in wheels)
             {
+                // Brake the car
                 wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
             }
 
@@ -100,13 +100,16 @@ public class MovementCar : MonoBehaviour
         {
             foreach (var wheel in wheels)
             {
+                // Release the brakes
                 wheel.wheelCollider.brakeTorque = 0;
             }
 
         }
     }
 
-    void AnimateWheels()
+    
+    // Make the animation of the car wheels
+    private void AnimateWheels()
     {
         foreach(var wheel in wheels)
         {
@@ -117,6 +120,4 @@ public class MovementCar : MonoBehaviour
             wheel.wheelModel.transform.rotation = rot;
         }
     }
-
-    
 }

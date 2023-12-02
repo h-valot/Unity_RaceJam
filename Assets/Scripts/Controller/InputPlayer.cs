@@ -6,7 +6,7 @@ public class InputPlayer : MonoBehaviour
     public float verticalInput { get; private set; }
     private ControlMode control;
     
-    private enum ControlMode
+    public enum ControlMode
     {
         Keyboard,
         Buttons

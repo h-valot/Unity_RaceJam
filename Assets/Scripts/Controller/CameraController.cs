@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float moveSmoothness;
-    public float rotSmoothness;
+    [SerializeField] private float moveSmoothness;
+    [SerializeField] private float rotSmoothness;
 
-    public Vector3 moveOffset;
-    public Vector3 rotOffset;
+    [SerializeField] private Vector3 moveOffset;
+    [SerializeField] private Vector3 rotOffset;
 
-    public Transform carTarget;
+    [SerializeField] private Transform carTarget;
 
     void FixedUpdate()
     {
