@@ -88,7 +88,7 @@ public class MovementCar : MonoBehaviour
 
     void Brake()
     {
-        if (Input.GetKey(KeyCode.Space) || moveInput == 0)
+        if (moveInput == 0)
         {
             foreach (var wheel in wheels)
             {
