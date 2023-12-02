@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4446430455112683301}
-  - component: {fileID: 7771714752286189926}
   m_Layer: 0
   m_Name: Wheels
   m_TagString: Untagged
@@ -34,18 +33,6 @@ Transform:
   - {fileID: 7376805964483067725}
   m_Father: {fileID: 4608566252453952920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7771714752286189926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514902082947560427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4688aea11d9b9be4db510b9939424576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &674873266501307655
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +470,8 @@ GameObject:
   - component: {fileID: 4608566252453952920}
   - component: {fileID: 867999414194342543}
   - component: {fileID: 4072636064853733164}
+  - component: {fileID: 3148258319757178487}
+  - component: {fileID: 3788865296069069266}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -565,6 +554,30 @@ MonoBehaviour:
   - wheelModel: {fileID: 8035274136255970847}
     wheelCollider: {fileID: 5929272612233617973}
     axel: 1
+--- !u!114 &3148258319757178487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ad77ef2e28d8b4797aee7f4532c601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3788865296069069266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c3d148340961745bb24dd8c0f5f0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5612360592678289850
 GameObject:
   m_ObjectHideFlags: 0
