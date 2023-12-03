@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 0}
   timeManager: {fileID: 0}
+  AIAmount: 4
+  AIPrefab: {fileID: 2964517469739498489, guid: 6ea6801ac4bbd544eb0321d6a23536ea, type: 3}

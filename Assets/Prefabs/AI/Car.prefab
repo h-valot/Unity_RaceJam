@@ -228,7 +228,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &3311472108889693480
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5079543146597228878
 MonoBehaviour:
@@ -330,6 +330,7 @@ MonoBehaviour:
   - Wall
   transparentTags:
   - EditorOnly
+  - IgnoreAICar
   bodyTransform: {fileID: 361597851742783772}
 --- !u!114 &4399312910649179850
 MonoBehaviour:
@@ -348,6 +349,7 @@ MonoBehaviour:
   - Player
   transparentTags:
   - EditorOnly
+  - IgnoreAICar
   bodyTransform: {fileID: 361597851742783772}
 --- !u!114 &8853465892496671286
 MonoBehaviour:
@@ -366,6 +368,7 @@ MonoBehaviour:
   - EnemyCar
   transparentTags:
   - EditorOnly
+  - IgnoreAICar
   bodyTransform: {fileID: 361597851742783772}
 --- !u!1 &4134185902270935464
 GameObject:

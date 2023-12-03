@@ -25,6 +25,11 @@ namespace Script.AI.Car
                 rigidBody = this.GetComponent<Rigidbody>();
             }
         }
+
+        public void Initialize(Transform finishCell)
+        {
+            this.target = finishCell;
+        }
         
         public void OnSightWall(AIStimulusResult aiStimulusResult)
         {
@@ -62,7 +67,7 @@ namespace Script.AI.Car
 
         private void FixedUpdate()
         {
-            this._direction += (target.position - this.transform.position).normalized;
+            this._direction += (target.position - this.transform.position).normalized / 1.5f;
             
             this._direction.y = 0.0f;
             this._direction.Normalize();
