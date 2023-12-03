@@ -7,7 +7,7 @@ public class GameConfig : ScriptableObject
     
     [Header("GAME TWEAKING")]
     [Tooltip("Number of ai that will spawn in game")]
-    public int aiAmount = 4;
+    [Range(0, 4)] public int aiAmount = 4;
     [Tooltip("Higher is this value, higher will be the player's score")]
     public float scoreMultiplier = 4;
     [Tooltip("Number of circuit played in one cycle")]

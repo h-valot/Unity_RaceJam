@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public GameObject playerCarPrefab;    
     public GameObject aiPrefab;
+    public Transform[] aiSpawnPoints;
     
     private void Start()
     {
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
         
         mapManager.GenerateMap();
         SpawnPlayerCar();
-        // SpawnAIs();
+        SpawnAIs();
         scoreManager.Initialize();
     }
 
@@ -40,7 +41,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < Registry.gameConfig.aiAmount; i++)
         {
-            var newAI = Instantiate(aiPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform).GetComponent<AICar>();
+            var aiPos = new Vector3(aiSpawnPoints[i].position.x * Registry.mapConfig.sizeScaler/2, 0.5f, aiSpawnPoints[i].position.z * Registry.mapConfig.sizeScaler/2);
+            var newAI = Instantiate(aiPrefab, aiPos, Quaternion.identity, transform).GetComponent<AICar>();
             var targetTransform = mapManager.currentMap.GetFinishCellTransform();
             newAI.Initialize(targetTransform);
         }
@@ -60,15 +62,13 @@ public class GameManager : MonoBehaviour
     
     private void Reload()
     {
-        // handle end animations
-        
         // save data
         DataManager.data.raceAmount++;
         DataManager.Save();
         
         if (DataManager.data.raceAmount < Registry.gameConfig.raceAmount)
         {
-            // load game scene
+            // reload current scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
