@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("REFERENCES")] 
     public MapManager mapManager;
-    public TimeManager timeManager;
     public ScoreManager scoreManager;
     public GameObject playerCarPrefab;    
     public GameObject aiPrefab;
@@ -25,8 +24,7 @@ public class GameManager : MonoBehaviour
         mapManager.GenerateMap();
         SpawnPlayerCar();
         // SpawnAIs();
-        timeManager.StartTimer();
-        scoreManager.DisplayScore();
+        scoreManager.Initialize();
     }
 
     /// <summary>
@@ -75,6 +73,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // save highest score
+            if (DataManager.data.score > DataManager.data.highestScore) 
+                DataManager.data.highestScore = DataManager.data.score;
+            
             // load main menu scene
             SceneManager.LoadScene("MainMenu");
         }

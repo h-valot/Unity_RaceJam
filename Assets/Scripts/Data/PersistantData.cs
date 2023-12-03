@@ -10,10 +10,12 @@ namespace Data
 
             // sync data
             score = data.score;
+            highestScore = data.highestScore;
             raceAmount = data.raceAmount;
         }
 
         public int score;
+        public int highestScore;
         public int raceAmount;
     }
 }
