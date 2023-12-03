@@ -12,11 +12,6 @@ namespace Map
         {
             this.circuit = circuit;
         }
-    
-        public Transform GetFinishCellTransform()
-        {
-            return circuit[^1].graphics.transform;
-        }
 
         /// <summary>
         /// Returns the orientation cars must have at the beginning of the circuit as an eulerAngles Vector3
@@ -36,6 +31,16 @@ namespace Map
             if (circuit[0].z < circuit[1].z) output = new Vector3(0, 0, 0);
         
             return output;
+        }
+
+        /// <summary>
+        /// Returns the transform of the further cell in the circuit 
+        /// </summary>
+        public Transform GetNextCellTransform(int index, int offset)
+        {
+            int furtherIndex = index + offset;
+            if (furtherIndex >= circuit.Count - 1) furtherIndex = circuit.Count - 1;
+            return circuit[furtherIndex].graphics.transform;
         }
     }
 }

@@ -85,12 +85,9 @@ MonoBehaviour:
   rightWall: {fileID: 767162536802834321}
   frontWall: {fileID: 2357738545735796649}
   backWall: {fileID: 7502499135797965588}
-  pos: {x: 0, y: 0}
-  next: {fileID: 0}
-  previous: {fileID: 0}
+  isFinishCell: 0
   place: 0
-  isVisited: 0
-  type: 1
+  mapManager: {fileID: 0}
 --- !u!65 &3702784855313058898
 BoxCollider:
   m_ObjectHideFlags: 0

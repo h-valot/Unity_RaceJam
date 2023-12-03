@@ -6,7 +6,7 @@ namespace Map
     {
         private Map _map;
 
-        public void ShowMap(Map map)
+        public void ShowMap(Map map, MapManager mapManager)
         {
             if (map == null)
             {
@@ -16,7 +16,7 @@ namespace Map
 
             _map = map;
 
-            GenerateCells();
+            GenerateCells(mapManager);
         }
     
     
@@ -24,7 +24,7 @@ namespace Map
         /// Generates a circuit as a list of cell of a size based on the map config
         /// Clears walls on map to display the race circuit and hides unused cells 
         /// </summary>
-        private void GenerateCells()
+        private void GenerateCells(MapManager mapManager)
         {
             for (int index = 0; index < _map.circuit.Count; index++)
             {
@@ -34,6 +34,8 @@ namespace Map
                 _map.circuit[index].graphics.transform.localScale *= Registry.mapConfig.sizeScaler;
             
                 // set cell placement informations
+                _map.circuit[index].graphics.place = index;
+                _map.circuit[index].graphics.mapManager = mapManager;
                 if (index == _map.circuit.Count - 1) _map.circuit[index].graphics.isFinishCell = true;
             }
 

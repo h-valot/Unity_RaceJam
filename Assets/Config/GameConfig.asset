@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e44768d1054b494192159c62c0befad, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  startingScene: MainMenu
-  aiAmount: 4
+  startingScene: Map
+  aiAmount: 2
   scoreMultiplier: 4
   raceAmount: 2
+  aiMovementSpeed:
+    min: 8
+    max: 11
