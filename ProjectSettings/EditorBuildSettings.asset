@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6f83b40a54af5ab4bac8e90c73ddf99a
+  - enabled: 1
+    path: Assets/Scenes/SelectCar.unity
+    guid: 1c8adb8dbf3b9e54486d448f05d17af1
+  - enabled: 1
+    path: Assets/Scenes/Merge.unity
+    guid: 433fcc4cf2e51f64199d86c75c6746d4
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
