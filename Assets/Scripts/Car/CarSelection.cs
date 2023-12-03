@@ -10,21 +10,16 @@ using UnityEngine.UI;
 public class CarSelection : MonoBehaviour
 {
 
-    public GameObject[] cars;
-    public Button next;
-    public Button prev;
-    private int index;
+    [SerializeField] private GameObject[] cars;
+    [SerializeField] private Button next;
+    [SerializeField] private Button prev;
     [SerializeField] private GameObject _carLocation;
+    private int index;
+    private GameObject currentCarInstance;
 
     void Start()
     {
         index = PlayerPrefs.GetInt("carIndex");
-        for (int i = 0; i < cars.Length; i++)
-        {
-            //Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
-            //cars[i].SetActive(false);
-        }
-        index = 0;
 
         if (index == null)
         {
@@ -32,14 +27,13 @@ public class CarSelection : MonoBehaviour
             PlayerPrefs.SetInt("carIndex", index);
             PlayerPrefs.Save();
         }
-        //cars[index].SetActive(true);
-        Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
+
+        SpawnCar();
     }
-
-
+    
     private void Update()
     {
-        if (index >= cars.Length)
+        if (index >= cars.Length-1)
         {
             next.interactable = false;
         }
@@ -54,39 +48,35 @@ public class CarSelection : MonoBehaviour
         }
         else
         {
-            next.interactable = true;
+            prev.interactable = true;
         }
     }
-
-
+    
     public void Next()
     {
         index++;
-        for (int i = 0; i < cars.Length; i++)
-        {
-            Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
-            //cars[i].SetActive(false);
-        }
-        Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
-        //cars[index].SetActive(true);
+        SpawnCar();
         PlayerPrefs.SetInt("carIndex", index);
         PlayerPrefs.Save();
     }
-
-
+    
     public void Prev()
     {
         index--;
-        for (int i = 0; i < cars.Length; i++)
-        {
-            //cars[i].SetActive(false);
-        }
-        Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
-        //cars[index].SetActive(true);
+        SpawnCar();
         PlayerPrefs.SetInt("carIndex", index);
         PlayerPrefs.Save(); 
     }
 
+    private void SpawnCar()
+    {
+        if (currentCarInstance != null)
+        {
+            Destroy(currentCarInstance);
+        }
+        currentCarInstance = Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
+    }
+    
     public void StartGame()
     {
         SceneManager.LoadSceneAsync("Merge");
