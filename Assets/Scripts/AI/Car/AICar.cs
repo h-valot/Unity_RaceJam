@@ -52,6 +52,11 @@ namespace Script.AI.Car
             }
         }
 
+        public void OnSightOtherEnemyCar(AIStimulusResult aiStimulusResult)
+        {
+            this.OnSightWall(aiStimulusResult);
+        }
+
         private void FixedUpdate()
         {
             this._direction += (target.position - this.transform.position).normalized;
