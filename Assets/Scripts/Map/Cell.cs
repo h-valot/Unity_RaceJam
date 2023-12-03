@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -8,7 +9,7 @@ public class Cell : MonoBehaviour
     [HideInInspector] public Cell next;
     [HideInInspector] public Cell previous;
     [HideInInspector] public int place;
-    [HideInInspector] public bool isVisited;
+    [HideInInspector] public bool isVisited;s
     [HideInInspector] public CellType type = CellType.MID;
     
     public void Visit() => isVisited = true;

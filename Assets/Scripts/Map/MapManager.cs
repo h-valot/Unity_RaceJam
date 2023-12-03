@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour
     
     public Map currentMap;
     
-    private void Start()
+    public void GenerateMap()
     {
         currentMap = mapGenerator.GetMap(mapConfig);
         mapView.ShowMap(currentMap, mapConfig);

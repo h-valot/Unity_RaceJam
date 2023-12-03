@@ -85,8 +85,12 @@ MonoBehaviour:
   rightWall: {fileID: 767162536802834321}
   frontWall: {fileID: 2357738545735796649}
   backWall: {fileID: 7502499135797965588}
+  pos: {x: 0, y: 0}
+  next: {fileID: 0}
   previous: {fileID: 0}
+  place: 0
   isVisited: 0
+  type: 1
 --- !u!65 &1481688694357877566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -102,7 +106,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -122,7 +126,7 @@ GameObject:
   - component: {fileID: 2542125506878844952}
   m_Layer: 0
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +263,7 @@ GameObject:
   - component: {fileID: 6889647966624316418}
   m_Layer: 0
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,7 +368,7 @@ GameObject:
   - component: {fileID: 8639357235698687523}
   m_Layer: 0
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,7 +505,7 @@ GameObject:
   - component: {fileID: 2659199220675136326}
   m_Layer: 0
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
