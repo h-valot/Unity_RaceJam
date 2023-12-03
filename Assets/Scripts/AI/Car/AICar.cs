@@ -1,23 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Script.AI.Car
 {
     public class AICar : MonoBehaviour
     {
-        [SerializeField]
-        private bool focusPlayer = false;
-
-        [SerializeField] 
-        private Rigidbody rigidBody;
-
-        [SerializeField] 
-        private float speed = 1.0f;
-
-        [SerializeField] 
-        private Transform target;
+        [SerializeField] private bool focusPlayer = false;
+        [SerializeField] private Rigidbody rigidBody;
+        [SerializeField] private Transform target;
 
         private Vector3 _direction;
+        private float _speed;
 
         private void Start()
         {
@@ -25,11 +17,6 @@ namespace Script.AI.Car
             {
                 rigidBody = this.GetComponent<Rigidbody>();
             }
-        }
-
-        public void Initialize(Transform finishCell)
-        {
-            this.target = finishCell;
         }
         
         public void OnSightWall(AIStimulusResult aiStimulusResult)
@@ -79,11 +66,24 @@ namespace Script.AI.Car
             this._direction += (target.position - this.transform.position).normalized;
             
             this._direction.y = 0.0f;
-            this.rigidBody.velocity = this._direction * speed;
+            this.rigidBody.velocity = this._direction * _speed;
 
             this.LookAtNextPosition();
 
             this._direction = Vector3.zero;
+        }
+
+        public void UpdateTarget(Transform newTarget)
+        {
+            this.target = newTarget;
+        }
+
+        /// <summary>
+        /// Set the ai car speed to a random value between a min and a max set in the game config.
+        /// </summary>
+        public void SetSpeed()
+        {
+            this._speed = Registry.gameConfig.aiMovementSpeed.GetValue();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Script.AI.Car;
 using UnityEngine;
 
 namespace Map
@@ -6,16 +7,21 @@ namespace Map
     {
         public GameObject leftWall, rightWall, frontWall, backWall;
         public bool isFinishCell;
+        public int place;
+        
+        [HideInInspector] public MapManager mapManager;
 
         private void OnTriggerEnter(Collider other)
         {
-            // exit, if the collided gameobject isn't the car
-            if (other.TryGetComponent<ManagerCar>(out var car) && car == null) return;
+            if (other.CompareTag("Player"))
+            {
+                if (isFinishCell) Events.onPlayerReachesEnd?.Invoke();
+            }
 
-            // exit, if this is not the finish line cell
-            if (!isFinishCell) return;
-
-            Events.onPlayerReachesEnd?.Invoke();
+            if (other.transform.parent.TryGetComponent<AICar>(out var aiCar) && aiCar != null)
+            {
+                aiCar.UpdateTarget(mapManager.currentMap.GetNextCellTransform(place, 1));
+            }
         }
 
         public void ClearLeftWall() => leftWall.SetActive(false);

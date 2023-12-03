@@ -7,6 +7,7 @@ namespace Map
         [Header("REFERENCE")] 
         public MapView mapView;
     
+        [Header("DEBUGGING")]
         public Map currentMap;
     
         /// <summary>
@@ -15,7 +16,7 @@ namespace Map
         public void GenerateMap()
         {
             currentMap = MapGenerator.GetMap();
-            mapView.ShowMap(currentMap);
+            mapView.ShowMap(currentMap, this);
         }
     }
 }

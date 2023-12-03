@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
         {
             var aiPos = new Vector3(aiSpawnPoints[i].position.x * Registry.mapConfig.sizeScaler/2, 0.5f, aiSpawnPoints[i].position.z * Registry.mapConfig.sizeScaler/2);
             var newAI = Instantiate(aiPrefab, aiPos, Quaternion.identity, transform).GetComponent<AICar>();
-            var targetTransform = mapManager.currentMap.GetFinishCellTransform();
-            newAI.Initialize(targetTransform);
+            newAI.UpdateTarget(mapManager.currentMap.GetNextCellTransform(0, 1));
+            newAI.SetSpeed();
         }
     }
 
