@@ -36,8 +36,8 @@ namespace Map
                 _map.circuit[index].graphics.transform.localScale *= _mapConfig.sizeScaler;
             
                 // set cell placement informations
-                _map.circuit[index].place = index;
-                if (index == _map.circuit.Count - 1) _map.circuit[index].graphics.SetType(PointType.END);
+                _map.circuit[index].graphics.place = index;
+                if (index == _map.circuit.Count - 1) _map.circuit[index].graphics.isFinishCell = true;
             }
 
             foreach (Point point in _map.circuit)
@@ -60,6 +60,7 @@ namespace Map
             {
                 previousPoint.graphics.ClearRightWall();
                 currentPoint.graphics.ClearLeftWall();
+                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.leftWall.transform;
                 return;
             }
 
@@ -67,6 +68,7 @@ namespace Map
             {
                 previousPoint.graphics.ClearLeftWall();
                 currentPoint.graphics.ClearRightWall();
+                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.rightWall.transform;
                 return;
             }
 
@@ -74,6 +76,7 @@ namespace Map
             {
                 previousPoint.graphics.ClearFrontWall();
                 currentPoint.graphics.ClearBackWall();
+                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.backWall.transform;
                 return;
             }
 
@@ -81,7 +84,7 @@ namespace Map
             {
                 previousPoint.graphics.ClearBackWall();
                 currentPoint.graphics.ClearFrontWall();
-                return;
+                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.frontWall.transform;
             }
         }
     }

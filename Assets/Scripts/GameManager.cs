@@ -1,6 +1,7 @@
 using Map;
 using Script.AI.Car;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [Header("GAME SETTINGS")]
     public int aiAmount = 4;
+    public float scoreMultiplier = 4;
     
     private void Start()
     {
@@ -38,5 +40,32 @@ public class GameManager : MonoBehaviour
             var targetTransform = mapManager.currentMap.GetFinishCellTransform();
             newAI.Initialize(targetTransform);
         }
+    }
+
+    private void OnEnable()
+    {
+        Events.onPlayerReachesEnd += AddScore;
+        Events.onPlayerReachesEnd += Reload;
+    }
+
+    private void OnDisable()
+    {
+        Events.onPlayerReachesEnd -= AddScore;
+        Events.onPlayerReachesEnd -= Reload;
+    }
+
+    private void AddScore()
+    {
+        int pointEarned = Mathf.RoundToInt(mapManager.mapConfig.circuitSize * scoreMultiplier - timeManager.currentTime);
+        Debug.Log($"GAME MANAGER: +{pointEarned} point(s)");
+    }
+
+    private void Reload()
+    {
+        // handle end animations
+        
+        // load game scene
+        Debug.Log($"GAME MANAGER: reloading {SceneManager.GetActiveScene().name} scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

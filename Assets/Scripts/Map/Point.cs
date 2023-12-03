@@ -8,7 +8,6 @@ namespace Map
         public int x, z;
         public Point previous;
         public bool isVisited;
-        public int place;
 
         [HideInInspector] public Cell graphics;
     
@@ -19,12 +18,5 @@ namespace Map
         }
 
         public void Visit() => isVisited = true;
-    }
-
-    public enum PointType
-    {
-        START = 0,
-        MID,
-        END
     }
 }
