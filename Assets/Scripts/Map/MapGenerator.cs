@@ -2,123 +2,111 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+namespace Map
 {
-    private MapConfig _mapConfig;
-    private Cell[,] _mapGrid;
-    private List<Cell> _circuit = new List<Cell>();
-    private readonly List<Cell> _cells = new List<Cell>();
-
-    public Map GetMap(MapConfig mapConfig)
+    public static class MapGenerator
     {
-        if (mapConfig == null)
+        private static MapConfig _mapConfig;
+        private static Point[,] _mapGrid;
+        private static List<Point> _circuit = new List<Point>();
+        private static readonly List<Point> _points = new List<Point>();
+
+        public static Map GetMap(MapConfig mapConfig)
         {
-            Debug.LogError("MAP GENERATOR: map config is null");
-            return null;
+            if (mapConfig == null)
+            {
+                Debug.LogError("MAP GENERATOR: map config is null");
+                return null;
+            }
+
+            _mapConfig = mapConfig;
+        
+            InitializeMapGrid();
+            GenerateMap(null, _mapGrid[0, 0]);
+            SelectPoint();
+
+            return new Map(_circuit);
         }
 
-        _mapConfig = mapConfig;
-        
-        InitializeMapGrid();
-        GenerateMap(null, _mapGrid[0, 0]);
-        SelectCell();
-
-        return new Map(_circuit);
-    }
-
-    /// <summary>
-    /// Creates a map of cells with a size register in map config
-    /// </summary>
-    private void InitializeMapGrid()
-    {
-        _mapGrid = new Cell[_mapConfig.mapSize, _mapConfig.mapSize];
-        for (int x = 0; x < _mapConfig.mapSize; x++)
+        /// <summary>
+        /// Creates a map of points with a size register in map config
+        /// </summary>
+        private static void InitializeMapGrid()
         {
-            for (int z = 0; z < _mapConfig.mapSize; z++)
+            _mapGrid = new Point[_mapConfig.mapSize, _mapConfig.mapSize];
+            for (int x = 0; x < _mapConfig.mapSize; x++)
             {
-                // instantiate circuit
-                _mapGrid[x, z] = Instantiate(_mapConfig.cellPrefab, new Vector3(x * _mapConfig.sizeScaler, 0, z * _mapConfig.sizeScaler), Quaternion.identity, transform);
-                _mapGrid[x, z].pos = new Vector2(x, z);
-                _mapGrid[x, z].transform.localScale *= _mapConfig.sizeScaler;
+                for (int z = 0; z < _mapConfig.mapSize; z++)
+                {
+                    _mapGrid[x, z] = new Point(x, z);
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// Adds a cell to the cells list. Calls itself to add the next cell.
-    /// </summary>
-    private void GenerateMap(Cell previousCell, Cell currentCell)
-    {
-        // update display of the current cell
-        currentCell.Visit();
-        currentCell.previous = previousCell;
-        _cells.Add(currentCell);
+        /// <summary>
+        /// Adds a point to the points list. Calls itself to add the next point.
+        /// </summary>
+        private static void GenerateMap(Point previousPoint, Point currentPoint)
+        {
+            // update display of the current point
+            currentPoint.Visit();
+            currentPoint.previous = previousPoint;
+            _points.Add(currentPoint);
     
-        // generate next cells
-        Cell nextCell;
-        do {
-            nextCell = GetNextUnvisitedCell(currentCell);
-            currentCell.next = nextCell;
-            if (nextCell != null) GenerateMap(currentCell, nextCell);
-        } while (nextCell != null);
-    }
-
-    /// <summary>
-    /// Returns a randomly selected cell from the nearby cells
-    /// </summary>
-    private Cell GetNextUnvisitedCell(Cell currentCell)
-    {
-        var unvisitedCells = GetUnvisitedCells(currentCell);
-        return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
-    }
-
-    /// <summary>
-    /// Returns a ienumerable list of cells that contains every nearby unvisited cells
-    /// </summary>
-    private IEnumerable<Cell> GetUnvisitedCells(Cell currentCell)
-    {
-        int x = (int)currentCell.transform.position.x / _mapConfig.sizeScaler;
-        int z = (int)currentCell.transform.position.z / _mapConfig.sizeScaler;
-
-        if (x + 1 < _mapConfig.mapSize)
-        {
-            Cell cellToRight = _mapGrid[x + 1, z];
-            if (cellToRight.isVisited == false) yield return cellToRight;
+            // generate next points
+            Point nextPoint;
+            do {
+                nextPoint = GetNextUnvisitedPoint(currentPoint);
+                if (nextPoint != null) GenerateMap(currentPoint, nextPoint);
+            } while (nextPoint != null);
         }
 
-        if (x - 1 >= 0)
+        /// <summary>
+        /// Returns a randomly selected point from the nearby points
+        /// </summary>
+        private static Point GetNextUnvisitedPoint(Point currentPoint)
         {
-            Cell cellToLeft = _mapGrid[x - 1, z];
-            if (cellToLeft.isVisited == false) yield return cellToLeft;
+            var unvisitedPoints = GetUnvisitedPoints(currentPoint);
+            return unvisitedPoints.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
         }
 
-        if (z + 1 < _mapConfig.mapSize)
+        /// <summary>
+        /// Returns a ienumerable list of points that contains every nearby unvisited points
+        /// </summary>
+        private static IEnumerable<Point> GetUnvisitedPoints(Point currentPoint)
         {
-            Cell cellToFront = _mapGrid[x, z + 1];
-            if (cellToFront.isVisited == false) yield return cellToFront;
+            if (currentPoint.x + 1 < _mapConfig.mapSize)
+            {
+                Point pointToRight = _mapGrid[currentPoint.x + 1, currentPoint.z];
+                if (!pointToRight.isVisited) yield return pointToRight;
+            }
+
+            if (currentPoint.x - 1 >= 0)
+            {
+                Point pointToLeft = _mapGrid[currentPoint.x - 1, currentPoint.z];
+                if (!pointToLeft.isVisited) yield return pointToLeft;
+            }
+
+            if (currentPoint.z + 1 < _mapConfig.mapSize)
+            {
+                Point pointToFront = _mapGrid[currentPoint.x, currentPoint.z + 1];
+                if (!pointToFront.isVisited) yield return pointToFront;
+            }
+
+            if (currentPoint.z - 1 >= 0)
+            {
+                Point pointToBack = _mapGrid[currentPoint.x, currentPoint.z - 1];
+                if (!pointToBack.isVisited) yield return pointToBack;
+            }
         }
 
-        if (z - 1 >= 0)
+        /// <summary>
+        /// Generates a circuit as a list of point of a size based on the map config
+        /// </summary>
+        private static void SelectPoint()
         {
-            Cell cellToBack = _mapGrid[x, z - 1];
-            if (cellToBack.isVisited == false) yield return cellToBack;
-        }
-    }
-
-    /// <summary>
-    /// Generates a circuit as a list of cell of a size based on the map config
-    /// Clears walls on map to display the race circuit and hides unused cells 
-    /// </summary>
-    private void SelectCell()
-    {
-        // get circuit based on size
-        int circuitSize = _mapConfig.circuitSize > _cells.Count ? _cells.Count : _mapConfig.circuitSize;
-        _circuit = _cells.Take(circuitSize).ToList();
-
-        // hide all unused cells
-        foreach (Cell cell in _cells)
-        {
-            if (_circuit.All(circuitCell => circuitCell != cell)) cell.Hide();
+            int circuitSize = _mapConfig.circuitSize > _points.Count ? _points.Count : _mapConfig.circuitSize;
+            _circuit = _points.Take(circuitSize).ToList();
         }
     }
 }
