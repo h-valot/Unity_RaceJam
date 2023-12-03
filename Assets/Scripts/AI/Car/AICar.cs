@@ -1,9 +1,4 @@
-﻿using System;
-using Script.AI.StimulusSources;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 namespace Script.AI.Car
 {
@@ -57,6 +52,14 @@ namespace Script.AI.Car
             this.OnSightWall(aiStimulusResult);
         }
 
+        private void LookAtNextPosition()
+        {
+            this.transform.LookAt(this.rigidBody.velocity);
+            var eulerAngles = this.transform.rotation.eulerAngles;
+            eulerAngles.x = 0.0f;
+            eulerAngles.z = 0.0f;
+        }
+
         private void FixedUpdate()
         {
             this._direction += (target.position - this.transform.position).normalized;
@@ -64,6 +67,9 @@ namespace Script.AI.Car
             this._direction.y = 0.0f;
             this._direction.Normalize();
             this.rigidBody.velocity = this._direction * speed;
+
+            this.LookAtNextPosition();
+
             this._direction = Vector3.zero;
         }
     }
