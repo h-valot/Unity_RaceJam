@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Script.AI.Car
 {
@@ -35,10 +36,10 @@ namespace Script.AI.Car
         {
             foreach (var other in aiStimulusResult.otherTansforms)
             {
-                this._direction += (this.transform.position - other.position).normalized;
+                this._direction -= other.position - this.transform.position;
             }
 
-            this._direction.Normalize();
+            this._direction = this._direction.normalized;
         }
         
         public void OnSightPlayer(AIStimulusResult aiStimulusResult)
@@ -47,7 +48,14 @@ namespace Script.AI.Car
             {
                 foreach (var other in aiStimulusResult.otherTansforms)
                 {
-                    this._direction += other.position - this.transform.position;
+                    if (!this.focusPlayer)
+                    {
+                        this._direction += other.position - this.transform.position;
+                    }
+                    else
+                    {
+                        this._direction -= other.position - this.transform.position;
+                    }
                 }
             }
         }
@@ -63,14 +71,14 @@ namespace Script.AI.Car
             var eulerAngles = this.transform.rotation.eulerAngles;
             eulerAngles.x = 0.0f;
             eulerAngles.z = 0.0f;
+            this.transform.rotation = Quaternion.Euler(eulerAngles);
         }
 
         private void FixedUpdate()
         {
-            this._direction += (target.position - this.transform.position).normalized / 1.5f;
+            this._direction += (target.position - this.transform.position).normalized;
             
             this._direction.y = 0.0f;
-            this._direction.Normalize();
             this.rigidBody.velocity = this._direction * speed;
 
             this.LookAtNextPosition();

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21083a80ceb3e47438c2f66cc9a08839, type: 3}
-  m_Name: MapConfig
+  m_Script: {fileID: 11500000, guid: 7e44768d1054b494192159c62c0befad, type: 3}
+  m_Name: GameConfig
   m_EditorClassIdentifier: 
-  mapSize: 10
-  circuitSize: 10
-  sizeScaler: 20
-  cellPrefab: {fileID: 2913913682574491607, guid: 0c2cb99f0a81b67499ba047f38e57e3b, type: 3}
+  startingScene: MainMenu
+  aiAmount: 4
+  scoreMultiplier: 4
+  raceAmount: 2

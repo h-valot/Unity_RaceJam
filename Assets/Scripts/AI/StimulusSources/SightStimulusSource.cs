@@ -42,7 +42,7 @@ namespace Script.AI.StimulusSources
             ray.origin = this.bodyTransform.position;
             ray.direction = (other.transform.position - this.bodyTransform.position).normalized;
             
-            var hits = Physics.RaycastAll(ray);
+            var hits = Physics.RaycastAll(ray, 10.0f);
 
             if (hits.Length > 0) {
                 var arrayStartIndex = 0;
@@ -91,7 +91,9 @@ namespace Script.AI.StimulusSources
             _outputAIStimulusResult.sourceTransform = this.bodyTransform;
             _outputAIStimulusResult.otherTansforms.Add(other);
             this.stimulusSource.EmmitStimulus(this._outputAIStimulusResult);
-            _outputAIStimulusResult = new AIStimulusResult();
+
+            _outputAIStimulusResult.otherTansforms.Clear();
+            _outputAIStimulusResult.objects.Clear();
         }
     }
 }

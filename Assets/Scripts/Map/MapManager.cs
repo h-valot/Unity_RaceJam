@@ -5,7 +5,6 @@ namespace Map
     public class MapManager : MonoBehaviour
     {
         [Header("REFERENCE")] 
-        public MapConfig mapConfig;
         public MapView mapView;
     
         public Map currentMap;
@@ -15,8 +14,8 @@ namespace Map
         /// </summary>
         public void GenerateMap()
         {
-            currentMap = MapGenerator.GetMap(mapConfig);
-            mapView.ShowMap(currentMap, mapConfig);
+            currentMap = MapGenerator.GetMap();
+            mapView.ShowMap(currentMap);
         }
     }
 }

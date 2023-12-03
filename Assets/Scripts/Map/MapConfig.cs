@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Map
 {
-    [CreateAssetMenu(fileName = "MapConfig", menuName = "Config/Map", order = 1)]
+    [CreateAssetMenu(fileName = "MapConfig", menuName = "Config/Map", order = 2)]
     public class MapConfig : ScriptableObject
     {
         [Header("MAP")]
