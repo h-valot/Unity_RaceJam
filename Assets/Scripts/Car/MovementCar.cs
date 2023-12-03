@@ -1,52 +1,123 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public class MovementCar : MonoBehaviour
 {
+
+    public enum Axel
+    {
+        Front,
+        Rear
+    }
+
+    [Serializable]
+    public struct Wheel
+    {
+        public GameObject wheelModel;
+        public WheelCollider wheelCollider;
+        public Axel axel;
+    }
+
+    [SerializeField] private float maxAcceleration = 30.0f;
+    [SerializeField] private float brakeAcceleration = 50.0f;
+
+    [SerializeField] private float turnSensitivity;
+    [SerializeField] private float maxSteerAngle;
+
+
+    [SerializeField] private List<Wheel> wheels;
+
+    private float moveInput;
+    private float steerInput;
+    private Rigidbody carRb;
+
+
+    private void Start()
+    {
+        carRb = GetComponent<Rigidbody>();
+        carRb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+    }
+
+    private void Update()
+    {
+        AnimateWheels();
+    }
+
+    private void LateUpdate()
+    {
+        Move();
+        Steer();
+        Brake();
+    }
+
+
+    public void ReceiveInput(float horizontalInput, float verticalInput)
+    {
+        moveInput = verticalInput;
+        steerInput = horizontalInput;
+    }
+
     
-    [SerializeField] private float _acceleration = 0.1f;
-    [SerializeField] private float _deceleration = 0.05f;
-    [SerializeField] private float _maxSpeed = 160f;
-    private float _currentSpeed = 0f;
-
-
-    public float CurrentSpeed
+    
+    // Move Car
+    private void Move()
     {
-        get => _currentSpeed;
+        foreach(var wheel in wheels)
+        {
+            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+        }
     }
 
-    public void Accelerate()
+    
+    
+    // Turn the car
+    private void Steer()
     {
-        _currentSpeed = Mathf.Min(_currentSpeed + _acceleration, _maxSpeed);
+        foreach(var wheel in wheels)
+        {
+            if (wheel.axel == Axel.Front)
+            {
+                var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
+                wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
+            }
+        }
     }
 
-    public void Decelerate()
+    // Stop the car
+    private void Brake()
     {
-        _currentSpeed = Mathf.Max(_currentSpeed - _deceleration, 0);
+        if (moveInput == 0)
+        {
+            foreach (var wheel in wheels)
+            {
+                // Brake the car
+                wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
+            }
+
+        }
+        else
+        {
+            foreach (var wheel in wheels)
+            {
+                // Release the brakes
+                wheel.wheelCollider.brakeTorque = 0;
+            }
+
+        }
     }
 
-    public void MoveStraight()
+    
+    // Make the animation of the car wheels
+    private void AnimateWheels()
     {
-        transform.Translate(Vector3.forward * _currentSpeed * Time.deltaTime);
+        foreach(var wheel in wheels)
+        {
+            Quaternion rot;
+            Vector3 pos;
+            wheel.wheelCollider.GetWorldPose(out pos, out rot);
+            wheel.wheelModel.transform.position = pos;
+            wheel.wheelModel.transform.rotation = rot;
+        }
     }
-
-
-    public void MoveOnRight(float horizontalInput)
-    {
-        transform.Rotate(0, horizontalInput * (_currentSpeed / 2) * Time.deltaTime, 0);
-    }
-
-    public void MoveOnLeft(float horizontalInput)
-    {
-        transform.Rotate(0,  (horizontalInput * (_currentSpeed / 2) * Time.deltaTime), 0);
-    }
-
-    public void ReverseCar()
-    {
-        float tmpMaxSpeed = _maxSpeed / 2;
-        _currentSpeed = Mathf.Min(_currentSpeed + _acceleration, tmpMaxSpeed);
-        transform.Translate(Vector3.back * _currentSpeed * Time.deltaTime);
-    }
-
 }

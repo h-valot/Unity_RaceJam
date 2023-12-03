@@ -1,44 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ManagerCar : MonoBehaviour
 {
+    private InputPlayer inputPlayer;
+    private MovementCar movementCar;
 
-    [SerializeField] private MovementCar _movementCar;
-    [SerializeField] private WheelsManager _wheelsManager;
-
-    public void MoveCarStraightDirection()
+    void Start()
     {
-        _movementCar.Accelerate();
-        _movementCar.MoveStraight();
+        inputPlayer = GetComponent<InputPlayer>();
+        movementCar = GetComponent<MovementCar>();
     }
 
-    public void MoveCarRightDirection(float horizontalInput)
+    void Update()
     {
-        _movementCar.MoveOnRight(horizontalInput);
+        movementCar.ReceiveInput(inputPlayer.horizontalInput, inputPlayer.verticalInput);
     }
-
-
-    public void MoveCarLeftDirection(float horizontalInput)
-    {
-        _movementCar.MoveOnLeft(horizontalInput);
-    }
-
-    public void ReverseCar()
-    {
-        _movementCar.ReverseCar();
-    }
-    
-    public void CancelCarAccelaration()
-    {
-        _movementCar.Decelerate();
-    }
-
-    public void Decelerate()
-    {
-        _movementCar.Decelerate();
-    }
-    
-    
 }

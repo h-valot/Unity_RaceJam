@@ -1,42 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputPlayer : MonoBehaviour
 {
-    [SerializeField] private ManagerCar _managerCar;
-    void Update()
+    public float horizontalInput { get; private set; }
+    public float verticalInput { get; private set; }
+    private ControlMode control;
+    
+    public enum ControlMode
     {
+        Keyboard,
+        Buttons
+    };
 
-        if (Input.GetKey(KeyCode.Z) && !(Input.GetKey(KeyCode.S)))
+    void Update()
+    { 
+        switch(control)
         {
-            _managerCar.MoveCarStraightDirection();
+            case ControlMode.Keyboard:
+                verticalInput = Input.GetAxis("Vertical");
+                horizontalInput = Input.GetAxis("Horizontal");
+                break;
+            case ControlMode.Buttons:
+                verticalInput = Input.GetAxis("Joystick Vertical");
+                horizontalInput = Input.GetAxis("Joystick Horizontal");
+                break;
         }
-        
-        if (Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.Z)))
-        {
-            _managerCar.ReverseCar();
-        }
-        
-        if (Input.GetKey(KeyCode.Z) && (Input.GetKey(KeyCode.S)))
-        {
-            _managerCar.CancelCarAccelaration();
-        }
-        
-        if (Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.RightArrow))
-        {
-            _managerCar.MoveCarRightDirection(Input.GetAxis("Horizontal"));
-        }
-        
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            _managerCar.MoveCarLeftDirection(Input.GetAxis("Horizontal"));
-        }
-        
-        else
-        {
-            _managerCar.Decelerate();
-        }
-        
     }
 }
