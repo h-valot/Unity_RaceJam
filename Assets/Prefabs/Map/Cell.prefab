@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 538387641901458972}
   - component: {fileID: 2913913682574491607}
+  - component: {fileID: 1481688694357877566}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Untagged
@@ -84,12 +85,29 @@ MonoBehaviour:
   rightWall: {fileID: 767162536802834321}
   frontWall: {fileID: 2357738545735796649}
   backWall: {fileID: 7502499135797965588}
-  center: {fileID: 0}
-  x: 0
-  z: 0
   previous: {fileID: 0}
-  next: {fileID: 0}
   isVisited: 0
+--- !u!65 &1481688694357877566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268608246060263611}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1590629044980605884
 GameObject:
   m_ObjectHideFlags: 0

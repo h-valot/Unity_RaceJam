@@ -15,3 +15,4 @@ MonoBehaviour:
   mapSize: 10
   circuitSize: 10
   sizeScaler: 20
+  cellPrefab: {fileID: 2913913682574491607, guid: 0c2cb99f0a81b67499ba047f38e57e3b, type: 3}
