@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ManagerCar : MonoBehaviour
 {
-    public int positionOnCircuit;
     private InputPlayer inputPlayer;
     private MovementCar movementCar;
 

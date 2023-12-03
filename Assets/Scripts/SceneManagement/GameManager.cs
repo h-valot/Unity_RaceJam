@@ -1,3 +1,4 @@
+using Data;
 using Map;
 using Script.AI.Car;
 using UnityEngine;
@@ -8,19 +9,24 @@ public class GameManager : MonoBehaviour
     [Header("REFERENCES")] 
     public MapManager mapManager;
     public TimeManager timeManager;
+    public ScoreManager scoreManager;
     public GameObject playerCarPrefab;    
     public GameObject aiPrefab;
-
-    [Header("GAME SETTINGS")]
-    public int aiAmount = 4;
-    public float scoreMultiplier = 4;
     
     private void Start()
     {
+        // exit, if registry isn't initialized
+        if (!Registry.isInitialized)
+        {
+            SceneManager.LoadScene("Init");
+            return;
+        }
+        
         mapManager.GenerateMap();
         SpawnPlayerCar();
         // SpawnAIs();
         timeManager.StartTimer();
+        scoreManager.DisplayScore();
     }
 
     /// <summary>
@@ -34,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnAIs()
     {
-        for (int i = 0; i < aiAmount; i++)
+        for (int i = 0; i < Registry.gameConfig.aiAmount; i++)
         {
             var newAI = Instantiate(aiPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform).GetComponent<AICar>();
             var targetTransform = mapManager.currentMap.GetFinishCellTransform();
@@ -44,28 +50,34 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Events.onPlayerReachesEnd += AddScore;
+        Events.onPlayerReachesEnd += scoreManager.AddScore;
         Events.onPlayerReachesEnd += Reload;
     }
 
     private void OnDisable()
     {
-        Events.onPlayerReachesEnd -= AddScore;
+        Events.onPlayerReachesEnd -= scoreManager.AddScore;
         Events.onPlayerReachesEnd -= Reload;
     }
-
-    private void AddScore()
-    {
-        int pointEarned = Mathf.RoundToInt(mapManager.mapConfig.circuitSize * scoreMultiplier - timeManager.currentTime);
-        Debug.Log($"GAME MANAGER: +{pointEarned} point(s)");
-    }
-
+    
     private void Reload()
     {
         // handle end animations
         
-        // load game scene
-        Debug.Log($"GAME MANAGER: reloading {SceneManager.GetActiveScene().name} scene");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // save data
+        DataManager.data.raceAmount++;
+        DataManager.Save();
+        
+        if (DataManager.data.raceAmount < Registry.gameConfig.raceAmount)
+        {
+            // load game scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            // load main menu scene
+            SceneManager.LoadScene("MainMenu");
+        }
+        
     }
 }

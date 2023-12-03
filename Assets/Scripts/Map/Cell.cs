@@ -5,23 +5,17 @@ namespace Map
     public class Cell : MonoBehaviour
     {
         public GameObject leftWall, rightWall, frontWall, backWall;
-        public Transform closestToFinishCellPoint;
         public bool isFinishCell;
-        public int place;
 
         private void OnTriggerEnter(Collider other)
         {
             // exit, if the collided gameobject isn't the car
             if (other.TryGetComponent<ManagerCar>(out var car) && car == null) return;
 
-            if (!isFinishCell)
-            {
-                car.positionOnCircuit = place;
-            }
-            else
-            {
-                Events.onPlayerReachesEnd?.Invoke();
-            }    
+            // exit, if this is not the finish line cell
+            if (!isFinishCell) return;
+
+            Events.onPlayerReachesEnd?.Invoke();
         }
 
         public void ClearLeftWall() => leftWall.SetActive(false);

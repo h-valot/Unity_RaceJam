@@ -5,9 +5,8 @@ namespace Map
     public class MapView : MonoBehaviour
     {
         private Map _map;
-        private MapConfig _mapConfig;
 
-        public void ShowMap(Map map, MapConfig mapConfig)
+        public void ShowMap(Map map)
         {
             if (map == null)
             {
@@ -16,7 +15,6 @@ namespace Map
             }
 
             _map = map;
-            _mapConfig = mapConfig;
 
             GenerateCells();
         }
@@ -31,12 +29,11 @@ namespace Map
             for (int index = 0; index < _map.circuit.Count; index++)
             {
                 // update graphics display
-                var cellPos = new Vector3(_map.circuit[index].x, 0, _map.circuit[index].z) * _mapConfig.sizeScaler;
-                _map.circuit[index].graphics = Instantiate(_mapConfig.cellPrefab, cellPos, Quaternion.identity, transform);
-                _map.circuit[index].graphics.transform.localScale *= _mapConfig.sizeScaler;
+                var cellPos = new Vector3(_map.circuit[index].x, 0, _map.circuit[index].z) * Registry.mapConfig.sizeScaler;
+                _map.circuit[index].graphics = Instantiate(Registry.mapConfig.cellPrefab, cellPos, Quaternion.identity, transform);
+                _map.circuit[index].graphics.transform.localScale *= Registry.mapConfig.sizeScaler;
             
                 // set cell placement informations
-                _map.circuit[index].graphics.place = index;
                 if (index == _map.circuit.Count - 1) _map.circuit[index].graphics.isFinishCell = true;
             }
 
@@ -60,7 +57,6 @@ namespace Map
             {
                 previousPoint.graphics.ClearRightWall();
                 currentPoint.graphics.ClearLeftWall();
-                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.leftWall.transform;
                 return;
             }
 
@@ -68,7 +64,6 @@ namespace Map
             {
                 previousPoint.graphics.ClearLeftWall();
                 currentPoint.graphics.ClearRightWall();
-                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.rightWall.transform;
                 return;
             }
 
@@ -76,7 +71,6 @@ namespace Map
             {
                 previousPoint.graphics.ClearFrontWall();
                 currentPoint.graphics.ClearBackWall();
-                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.backWall.transform;
                 return;
             }
 
@@ -84,7 +78,6 @@ namespace Map
             {
                 previousPoint.graphics.ClearBackWall();
                 currentPoint.graphics.ClearFrontWall();
-                currentPoint.graphics.closestToFinishCellPoint = currentPoint.graphics.frontWall.transform;
             }
         }
     }

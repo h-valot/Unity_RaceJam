@@ -6,21 +6,12 @@ namespace Map
 {
     public static class MapGenerator
     {
-        private static MapConfig _mapConfig;
         private static Point[,] _mapGrid;
         private static List<Point> _circuit = new List<Point>();
         private static readonly List<Point> _points = new List<Point>();
 
-        public static Map GetMap(MapConfig mapConfig)
+        public static Map GetMap()
         {
-            if (mapConfig == null)
-            {
-                Debug.LogError("MAP GENERATOR: map config is null");
-                return null;
-            }
-
-            _mapConfig = mapConfig;
-        
             InitializeMapGrid();
             GenerateMap(null, _mapGrid[0, 0]);
             SelectPoint();
@@ -33,10 +24,10 @@ namespace Map
         /// </summary>
         private static void InitializeMapGrid()
         {
-            _mapGrid = new Point[_mapConfig.mapSize, _mapConfig.mapSize];
-            for (int x = 0; x < _mapConfig.mapSize; x++)
+            _mapGrid = new Point[Registry.mapConfig.mapSize, Registry.mapConfig.mapSize];
+            for (int x = 0; x < Registry.mapConfig.mapSize; x++)
             {
-                for (int z = 0; z < _mapConfig.mapSize; z++)
+                for (int z = 0; z < Registry.mapConfig.mapSize; z++)
                 {
                     _mapGrid[x, z] = new Point(x, z);
                 }
@@ -75,7 +66,7 @@ namespace Map
         /// </summary>
         private static IEnumerable<Point> GetUnvisitedPoints(Point currentPoint)
         {
-            if (currentPoint.x + 1 < _mapConfig.mapSize)
+            if (currentPoint.x + 1 < Registry.mapConfig.mapSize)
             {
                 Point pointToRight = _mapGrid[currentPoint.x + 1, currentPoint.z];
                 if (!pointToRight.isVisited) yield return pointToRight;
@@ -87,7 +78,7 @@ namespace Map
                 if (!pointToLeft.isVisited) yield return pointToLeft;
             }
 
-            if (currentPoint.z + 1 < _mapConfig.mapSize)
+            if (currentPoint.z + 1 < Registry.mapConfig.mapSize)
             {
                 Point pointToFront = _mapGrid[currentPoint.x, currentPoint.z + 1];
                 if (!pointToFront.isVisited) yield return pointToFront;
@@ -105,7 +96,7 @@ namespace Map
         /// </summary>
         private static void SelectPoint()
         {
-            int circuitSize = _mapConfig.circuitSize > _points.Count ? _points.Count : _mapConfig.circuitSize;
+            int circuitSize = Registry.mapConfig.circuitSize > _points.Count ? _points.Count : Registry.mapConfig.circuitSize;
             _circuit = _points.Take(circuitSize).ToList();
         }
     }

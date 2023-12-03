@@ -5,10 +5,10 @@ namespace Data
     {
         public PersistantData(PersistantData data)
         {
-            // exit, if data is null
+            // exit, if there is no data to load
             if (data == null) return;
 
-            // synchronize data
+            // sync data
             score = data.score;
             raceAmount = data.raceAmount;
         }
