@@ -469,9 +469,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4608566252453952920}
   - component: {fileID: 867999414194342543}
+  - component: {fileID: 4186716727749418017}
   - component: {fileID: 4072636064853733164}
   - component: {fileID: 3148258319757178487}
-  - component: {fileID: 3788865296069069266}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -524,6 +524,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &4186716727749418017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c3d148340961745bb24dd8c0f5f0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputPlayer: {fileID: 3148258319757178487}
+  movementCar: {fileID: 4072636064853733164}
+  _carGameObject: {fileID: 8916679402623449723}
 --- !u!114 &4072636064853733164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,19 +580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ad77ef2e28d8b4797aee7f4532c601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3788865296069069266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5592489916072190721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c3d148340961745bb24dd8c0f5f0cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionOnCircuit: 0
 --- !u!1 &5612360592678289850
 GameObject:
   m_ObjectHideFlags: 0
