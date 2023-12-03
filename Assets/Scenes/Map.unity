@@ -188,6 +188,26 @@ PrefabInstance:
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 397323240}
+    - target: {fileID: 9101844898238520772, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
+      propertyPath: playerCarPrefab.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101844898238520772, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
+      propertyPath: 'playerCarPrefab.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8916679402623449723, guid: 73037c46acb32c640b0d7d0d594e94f4, type: 3}
+    - target: {fileID: 9101844898238520772, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
+      propertyPath: 'playerCarPrefab.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8916679402623449723, guid: 266b5ec3e3b350d4eadddf080fbe116e, type: 3}
+    - target: {fileID: 9101844898238520772, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
+      propertyPath: 'playerCarPrefab.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8916679402623449723, guid: 6b981a1a71f7d8944b3666eda886fd5d, type: 3}
+    - target: {fileID: 9101844898238520772, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
+      propertyPath: 'playerCarPrefab.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8916679402623449723, guid: abd770e604d79f0489571bbffc828805, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

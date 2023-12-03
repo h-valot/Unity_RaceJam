@@ -9,12 +9,20 @@ public class GameManager : MonoBehaviour
     [Header("REFERENCES")] 
     public MapManager mapManager;
     public ScoreManager scoreManager;
-    public GameObject playerCarPrefab;    
+    public GameObject[] playerCarPrefab;    
     public GameObject aiPrefab;
     public Transform[] aiSpawnPoints;
+    private int _indexCarPref;
     
     private void Start()
     {
+        _indexCarPref = PlayerPrefs.GetInt("carIndex");
+        if (_indexCarPref == null)
+        {
+            _indexCarPref = 0;
+            PlayerPrefs.SetInt("carIndex", _indexCarPref);
+            PlayerPrefs.Save();
+        }
         // exit, if registry isn't initialized
         if (!Registry.isInitialized)
         {
@@ -33,7 +41,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SpawnPlayerCar()
     {
-        var playerCar = Instantiate(playerCarPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
+        var playerCar = Instantiate(playerCarPrefab[_indexCarPref], new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
         playerCar.transform.eulerAngles = mapManager.currentMap.GetStartOrientation();
     }
 

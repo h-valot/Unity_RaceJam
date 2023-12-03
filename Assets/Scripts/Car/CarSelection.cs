@@ -79,6 +79,6 @@ public class CarSelection : MonoBehaviour
     
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync("Merge");
+        SceneManager.LoadScene("Map");
     }
 }
