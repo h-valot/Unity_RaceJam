@@ -6,6 +6,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [Header("REFERENCES")] 
     public HighestScoreDisplay highestScoreDisplay;
+    public GameObject settingsParent, creditsParent;
     
     private void Start()
     {
@@ -17,6 +18,8 @@ public class MainMenuManager : MonoBehaviour
         }
         
         highestScoreDisplay.UpdateDisplay();
+        CloseCredits();
+        CloseSettings();
     }
 
     public void Play()
@@ -25,4 +28,9 @@ public class MainMenuManager : MonoBehaviour
         DataManager.data.raceAmount = 0;
         SceneManager.LoadScene("Map");
     }
+
+    public void OpenSettings() => settingsParent.SetActive(true);
+    public void CloseSettings() => settingsParent.SetActive(false);
+    public void OpenCredits() => creditsParent.SetActive(true);
+    public void CloseCredits() => creditsParent.SetActive(false);
 }
