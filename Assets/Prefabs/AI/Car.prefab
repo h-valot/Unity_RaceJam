@@ -53,6 +53,7 @@ MonoBehaviour:
   aiStimulusCallBacks:
   - {fileID: 6177660482183691014}
   - {fileID: 3952999004651292110}
+  - {fileID: 8240297853567140079}
 --- !u!1 &158880605913437607
 GameObject:
   m_ObjectHideFlags: 0
