@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+namespace Map
 {
-    [Header("REFERENCE")] 
-    public MapConfig mapConfig;
-    public MapView mapView;
-    
-    public Map currentMap;
-    
-    public void GenerateMap()
+    public class MapManager : MonoBehaviour
     {
-        currentMap = MapGenerator.GetMap(mapConfig);
-        mapView.ShowMap(currentMap, mapConfig);
+        [Header("REFERENCE")] 
+        public MapConfig mapConfig;
+        public MapView mapView;
+    
+        public Map currentMap;
+    
+        /// <summary>
+        /// Generate a map of points and display those points as cells
+        /// </summary>
+        public void GenerateMap()
+        {
+            currentMap = MapGenerator.GetMap(mapConfig);
+            mapView.ShowMap(currentMap, mapConfig);
+        }
     }
 }

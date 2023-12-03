@@ -1,3 +1,4 @@
+using Map;
 using Script.AI.Car;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour
         timeManager.StartTimer();
     }
 
+    /// <summary>
+    /// Instantiate the player's car and make it face the correct direction
+    /// </summary>
     private void SpawnPlayerCar()
     {
         var playerCar = Instantiate(playerCarPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
