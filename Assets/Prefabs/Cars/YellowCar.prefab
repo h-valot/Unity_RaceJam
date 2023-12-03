@@ -536,7 +536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4769296f7c44d8c48bf7339efd92fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  control: 0
   maxAcceleration: 20
   brakeAcceleration: 50
   turnSensitivity: 1
@@ -1062,6 +1061,8 @@ MonoBehaviour:
   moveSmoothness: 5
   rotSmoothness: 7
   moveOffset: {x: 0.7, y: 2.59, z: -15}
+  forwardMoveOffset: {x: 0.7, y: 2.59, z: -15}
+  backwardMoveOffset: {x: 0.7, y: 2.59, z: -15}
   rotOffset: {x: 1, y: 0, z: 0}
   carTarget: {fileID: 4608566252453952920}
 --- !u!1 &9200548682925073218
