@@ -33,7 +33,6 @@ public class CameraController : MonoBehaviour
         {
             targetPos = carTarget.TransformPoint(forwardMoveOffset);
         }
-
         transform.position = Vector3.Lerp(transform.position, targetPos, moveSmoothness * Time.deltaTime);
     }
 
