@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   startingScene: MainMenu
-  raceAmount: 2
-  aiAmount: 2
+  raceAmount: 3
+  aiAmount: 3
   aiMovementSpeed:
-    min: 5
-    max: 8
-  scoreMultiplier: 4
+    min: 7
+    max: 11
+  scoreMultiplier: 3
   scoreLossPlayerHitWall: 10
   endCircuitScoreDuration: 3.74
   endCycleScoreDuration: 5

@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Map
 {
-    public static class MapGenerator
+    public class MapGenerator : MonoBehaviour
     {
-        private static Point[,] _mapGrid;
-        private static List<Point> _circuit = new List<Point>();
-        private static readonly List<Point> _points = new List<Point>();
+        private Point[,] _mapGrid;
+        private List<Point> _circuit = new List<Point>();
+        private readonly List<Point> _points = new List<Point>();
 
-        public static Map GetMap()
+        public Map GetMap()
         {
             InitializeMapGrid();
             GenerateMap(null, _mapGrid[0, 0]);
@@ -22,7 +22,7 @@ namespace Map
         /// <summary>
         /// Creates a map of points with a size register in map config
         /// </summary>
-        private static void InitializeMapGrid()
+        private void InitializeMapGrid()
         {
             _mapGrid = new Point[Registry.mapConfig.mapSize, Registry.mapConfig.mapSize];
             for (int x = 0; x < Registry.mapConfig.mapSize; x++)
@@ -37,7 +37,7 @@ namespace Map
         /// <summary>
         /// Adds a point to the points list. Calls itself to add the next point.
         /// </summary>
-        private static void GenerateMap(Point previousPoint, Point currentPoint)
+        private void GenerateMap(Point previousPoint, Point currentPoint)
         {
             // update display of the current point
             currentPoint.Visit();
@@ -55,7 +55,7 @@ namespace Map
         /// <summary>
         /// Returns a randomly selected point from the nearby points
         /// </summary>
-        private static Point GetNextUnvisitedPoint(Point currentPoint)
+        private Point GetNextUnvisitedPoint(Point currentPoint)
         {
             var unvisitedPoints = GetUnvisitedPoints(currentPoint);
             return unvisitedPoints.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
@@ -64,7 +64,7 @@ namespace Map
         /// <summary>
         /// Returns a ienumerable list of points that contains every nearby unvisited points
         /// </summary>
-        private static IEnumerable<Point> GetUnvisitedPoints(Point currentPoint)
+        private IEnumerable<Point> GetUnvisitedPoints(Point currentPoint)
         {
             if (currentPoint.x + 1 < Registry.mapConfig.mapSize)
             {
@@ -94,7 +94,7 @@ namespace Map
         /// <summary>
         /// Generates a circuit as a list of point of a size based on the map config
         /// </summary>
-        private static void SelectPoint()
+        private void SelectPoint()
         {
             int circuitSize = Registry.mapConfig.circuitSize > _points.Count ? _points.Count : Registry.mapConfig.circuitSize;
             _circuit = _points.Take(circuitSize).ToList();
