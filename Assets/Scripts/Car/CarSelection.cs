@@ -74,7 +74,7 @@ public class CarSelection : MonoBehaviour
         {
             Destroy(currentCarInstance);
         }
-        currentCarInstance = Instantiate(cars[index], _carLocation.transform.position, Quaternion.identity);
+        currentCarInstance = Instantiate(cars[index], _carLocation.transform.position, _carLocation.transform.rotation);
     }
     
     public void StartGame()
