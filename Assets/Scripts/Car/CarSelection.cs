@@ -1,67 +1,52 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 
 public class CarSelection : MonoBehaviour
 {
     [SerializeField] private GameObject[] cars;
-    [SerializeField] private Button next;
-    [SerializeField] private Button prev;
-    [SerializeField] private GameObject _carLocation;
+    [SerializeField] private GameObject nextButton, previousButton;
+    [SerializeField] private GameObject carLocation;
     
-    private int _index;
+    private int _currentCarIndex;
     private GameObject _currentCarInstance;
 
     void Start()
     {
-        _index = PlayerPrefs.GetInt("carIndex");
+        _currentCarIndex = PlayerPrefs.GetInt("carIndex");
 
-        if (_index == null)
+        if (_currentCarIndex == null)
         {
-            _index = 0;
-            PlayerPrefs.SetInt("carIndex", _index);
+            _currentCarIndex = 0;
+            PlayerPrefs.SetInt("carIndex", _currentCarIndex);
             PlayerPrefs.Save();
         }
 
+        UpdateButtonDisplay();
         SpawnCar();
     }
     
-    private void Update()
+    public void PressNext()
     {
-        if (_index >= cars.Length-1)
-        {
-            next.interactable = false;
-        }
-        else
-        {
-            next.interactable = true;
-        }
-
-        if (_index <= 0)
-        {
-            prev.interactable = false;
-        }
-        else
-        {
-            prev.interactable = true;
-        }
-    }
-    
-    public void Next()
-    {
-        _index++;
+        _currentCarIndex++;
         SpawnCar();
-        PlayerPrefs.SetInt("carIndex", _index);
+        PlayerPrefs.SetInt("carIndex", _currentCarIndex);
         PlayerPrefs.Save();
+        UpdateButtonDisplay();
     }
     
-    public void Prev()
+    public void PressPrevious()
     {
-        _index--;
+        _currentCarIndex--;
         SpawnCar();
-        PlayerPrefs.SetInt("carIndex", _index);
+        PlayerPrefs.SetInt("carIndex", _currentCarIndex);
         PlayerPrefs.Save(); 
+        UpdateButtonDisplay();
+    }
+    
+    private void UpdateButtonDisplay()
+    {
+        nextButton.SetActive(_currentCarIndex < cars.Length - 1);
+        previousButton.SetActive(_currentCarIndex > 0);
     }
 
     private void SpawnCar()
@@ -70,10 +55,10 @@ public class CarSelection : MonoBehaviour
         {
             Destroy(_currentCarInstance);
         }
-        _currentCarInstance = Instantiate(cars[_index], _carLocation.transform.position, _carLocation.transform.rotation);
+        _currentCarInstance = Instantiate(cars[_currentCarIndex], carLocation.transform.position, carLocation.transform.rotation);
     }
     
-    public void StartGame()
+    public void LaunchGameScene()
     {
         SceneManager.LoadScene("Game");
     }
