@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,22 +5,22 @@ using UnityEngine.UI;
 
 public class CarSelection : MonoBehaviour
 {
-
     [SerializeField] private GameObject[] cars;
     [SerializeField] private Button next;
     [SerializeField] private Button prev;
     [SerializeField] private GameObject _carLocation;
-    private int index;
-    private GameObject currentCarInstance;
+    
+    private int _index;
+    private GameObject _currentCarInstance;
 
     void Start()
     {
-        index = PlayerPrefs.GetInt("carIndex");
+        _index = PlayerPrefs.GetInt("carIndex");
 
-        if (index == null)
+        if (_index == null)
         {
-            index = 0;
-            PlayerPrefs.SetInt("carIndex", index);
+            _index = 0;
+            PlayerPrefs.SetInt("carIndex", _index);
             PlayerPrefs.Save();
         }
 
@@ -33,7 +29,7 @@ public class CarSelection : MonoBehaviour
     
     private void Update()
     {
-        if (index >= cars.Length-1)
+        if (_index >= cars.Length-1)
         {
             next.interactable = false;
         }
@@ -42,7 +38,7 @@ public class CarSelection : MonoBehaviour
             next.interactable = true;
         }
 
-        if (index <= 0)
+        if (_index <= 0)
         {
             prev.interactable = false;
         }
@@ -54,31 +50,31 @@ public class CarSelection : MonoBehaviour
     
     public void Next()
     {
-        index++;
+        _index++;
         SpawnCar();
-        PlayerPrefs.SetInt("carIndex", index);
+        PlayerPrefs.SetInt("carIndex", _index);
         PlayerPrefs.Save();
     }
     
     public void Prev()
     {
-        index--;
+        _index--;
         SpawnCar();
-        PlayerPrefs.SetInt("carIndex", index);
+        PlayerPrefs.SetInt("carIndex", _index);
         PlayerPrefs.Save(); 
     }
 
     private void SpawnCar()
     {
-        if (currentCarInstance != null)
+        if (_currentCarInstance != null)
         {
-            Destroy(currentCarInstance);
+            Destroy(_currentCarInstance);
         }
-        currentCarInstance = Instantiate(cars[index], _carLocation.transform.position, _carLocation.transform.rotation);
+        _currentCarInstance = Instantiate(cars[_index], _carLocation.transform.position, _carLocation.transform.rotation);
     }
     
     public void StartGame()
     {
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("Game");
     }
 }
