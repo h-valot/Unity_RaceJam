@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class MovementCar : MonoBehaviour
 {
-
     public enum Axel
     {
         Front,
@@ -25,13 +24,11 @@ public class MovementCar : MonoBehaviour
     [SerializeField] private float turnSensitivity;
     [SerializeField] private float maxSteerAngle;
 
-
     [SerializeField] private List<Wheel> wheels;
 
     private float moveInput;
     private float steerInput;
     private Rigidbody carRb;
-
 
     private void Start()
     {
@@ -51,15 +48,11 @@ public class MovementCar : MonoBehaviour
         Brake();
     }
 
-    
-
     public void ReceiveInput(float horizontalInput, float verticalInput)
     {
         moveInput = verticalInput;
         steerInput = horizontalInput;
     }
-
-    
     
     // Move Car
     private void Move()
@@ -69,8 +62,6 @@ public class MovementCar : MonoBehaviour
             wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
         }
     }
-
-    
     
     // Turn the car
     private void Steer()
@@ -107,7 +98,6 @@ public class MovementCar : MonoBehaviour
 
         }
     }
-
     
     // Make the animation of the car wheels
     private void AnimateWheels()

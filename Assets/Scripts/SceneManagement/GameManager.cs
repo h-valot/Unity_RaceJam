@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Data;
 using Map;
 using Script.AI.Car;
@@ -12,7 +13,9 @@ public class GameManager : MonoBehaviour
     public GameObject[] playerCarPrefab;    
     public GameObject aiPrefab;
     public Transform[] aiSpawnPoints;
+    
     private int _indexCarPref;
+    private bool _doHandleEnd;
     
     private void Start()
     {
@@ -23,6 +26,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("carIndex", _indexCarPref);
             PlayerPrefs.Save();
         }
+        
         // exit, if registry isn't initialized
         if (!Registry.isInitialized)
         {
@@ -58,17 +62,29 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Events.onPlayerReachesEnd += scoreManager.AddScore;
-        Events.onPlayerReachesEnd += Reload;
+        Events.onCircuitEnded += HandleEnd;
     }
 
     private void OnDisable()
     {
-        Events.onPlayerReachesEnd -= scoreManager.AddScore;
-        Events.onPlayerReachesEnd -= Reload;
+        Events.onCircuitEnded -= HandleEnd;
+    }
+
+    private void HandleEnd(bool wallHitten)
+    {
+        // cannot enter this fonction several times
+        if (_doHandleEnd) return;
+        _doHandleEnd = true;
+        
+        scoreManager.StopTimer();
+        
+        if (wallHitten) scoreManager.LoseScore();
+        else scoreManager.AddScore();
+        
+        Reload(wallHitten);
     }
     
-    private void Reload()
+    private async void Reload(bool wallHitten)
     {
         // save data
         DataManager.data.raceAmount++;
@@ -76,18 +92,22 @@ public class GameManager : MonoBehaviour
         
         if (DataManager.data.raceAmount < Registry.gameConfig.raceAmount)
         {
+            await scoreManager.AnimateEndCircuit(wallHitten);
+            
             // reload current scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
         {
             // save highest score
-            if (DataManager.data.score > DataManager.data.highestScore) 
+            if (DataManager.data.score > DataManager.data.highestScore)
                 DataManager.data.highestScore = DataManager.data.score;
+            
+            await scoreManager.AnimateEndCycle();
             
             // load main menu scene
             SceneManager.LoadScene("MainMenu");
         }
-        
     }
+
 }

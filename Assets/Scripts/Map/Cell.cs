@@ -15,7 +15,7 @@ namespace Map
         {
             if (other.CompareTag("Player"))
             {
-                if (isFinishCell) Events.onPlayerReachesEnd?.Invoke();
+                if (isFinishCell) Events.onCircuitEnded?.Invoke(false);
             }
 
             if (other.transform.parent.TryGetComponent<AICar>(out var aiCar) && aiCar != null)

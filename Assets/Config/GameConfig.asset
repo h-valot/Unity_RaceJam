@@ -13,9 +13,21 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   startingScene: MainMenu
+  raceAmount: 6
   aiAmount: 2
-  scoreMultiplier: 4
-  raceAmount: 2
   aiMovementSpeed:
     min: 5
     max: 8
+  scoreMultiplier: 4
+  scoreLossPlayerHitWall: 10
+  endCircuitScoreDuration: 3.74
+  endCycleScoreDuration: 5
+  loserSentences:
+  - Argh!
+  - Didn't see the wall ?!
+  - Red doesn't mean rushing into it.
+  - You should stop play video games.
+  winnerSentences:
+  - GG! But you can do better.
+  - Congrats. My little cousin would have done better.
+  - You are impressive

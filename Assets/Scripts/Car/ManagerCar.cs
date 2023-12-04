@@ -1,3 +1,4 @@
+using System.Data.SqlTypes;
 using UnityEngine;
 
 public class ManagerCar : MonoBehaviour
@@ -19,10 +20,10 @@ public class ManagerCar : MonoBehaviour
     
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            Destroy(_carGameObject);
-        }
+        // exit, if the collided object isn't a wall
+        if (!collision.gameObject.CompareTag("Wall")) return;
+
+        Events.onCircuitEnded?.Invoke(true);
     }
     
 }
