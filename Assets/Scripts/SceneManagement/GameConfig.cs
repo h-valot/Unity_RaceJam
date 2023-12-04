@@ -11,6 +11,7 @@ public class GameConfig : ScriptableObject
     [Range(1, 10)] public int raceAmount = 5;
     
     [Header("AI")]
+    public GameObject aiCarPrefab;
     [Tooltip("Number of ai that will spawn in game")]
     [Range(0, 4)] public int aiAmount = 4;
     [Tooltip("Speed of AI cars")] 
@@ -25,4 +26,12 @@ public class GameConfig : ScriptableObject
     public float endCircuitScoreDuration;
     public float endCycleScoreDuration;
     [TextArea] public string[] loserSentences, winnerSentences;
+
+    [Header("VFX")] 
+    public GameObject vfxExplosion;
+
+    [Header("CAR DISPLAY")] 
+    public GameObject playerCarPrefab;
+    public GameObject modelCarPrefab;
+    public Material[] playerCarMaterials;
 }

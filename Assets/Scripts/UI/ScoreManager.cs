@@ -78,7 +78,7 @@ public class ScoreManager : MonoBehaviour
         endCircuitFillImage.DOFillAmount(1, Registry.gameConfig.endCircuitScoreDuration);
         
         await Task.Delay(Mathf.RoundToInt(1000 * Registry.gameConfig.endCircuitScoreDuration));
-        endCircuitParent.SetActive(false);
+        if (endCircuitParent != null) endCircuitParent.SetActive(false);
     }
 
     public async Task AnimateEndCycle()
@@ -90,7 +90,7 @@ public class ScoreManager : MonoBehaviour
         endCycleFillImage.DOFillAmount(1, Registry.gameConfig.endCycleScoreDuration);
         
         await Task.Delay(1000 * Mathf.RoundToInt(Registry.gameConfig.endCycleScoreDuration));
-        endCycleParent.SetActive(false);
+        if (endCycleParent != null) endCycleParent.SetActive(false);
     }
     
     private void DisplayScore() => scoreTM.text = $"Score: {DataManager.data.score}";

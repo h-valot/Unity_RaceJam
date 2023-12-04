@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 5335781543793229097}
   - {fileID: 7376805964483067725}
-  m_Father: {fileID: 4608566252453952920}
+  m_Father: {fileID: 3064863911451270276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &674873266501307655
 GameObject:
@@ -258,6 +258,40 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &2118404145728987344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3064863911451270276}
+  m_Layer: 0
+  m_Name: Graphics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3064863911451270276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118404145728987344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5668385672851557648}
+  - {fileID: 3762288177469538582}
+  - {fileID: 4446430455112683301}
+  m_Father: {fileID: 4608566252453952920}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2687538557707627806
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4608566252453952920}
+  m_Father: {fileID: 3064863911451270276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7811047911277180934
 MeshFilter:
@@ -469,9 +503,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4608566252453952920}
   - component: {fileID: 867999414194342543}
-  - component: {fileID: 4186716727749418017}
-  - component: {fileID: 4072636064853733164}
-  - component: {fileID: 3148258319757178487}
+  - component: {fileID: 607525788876088578}
+  - component: {fileID: 4843894202176761171}
+  - component: {fileID: 3111932894776398856}
+  - component: {fileID: 2191873538364662812}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -492,9 +527,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5668385672851557648}
-  - {fileID: 3762288177469538582}
-  - {fileID: 4446430455112683301}
+  - {fileID: 3064863911451270276}
+  - {fileID: 5537453832493259934}
   m_Father: {fileID: 8139614211880378561}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &867999414194342543
@@ -524,7 +558,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &4186716727749418017
+--- !u!114 &607525788876088578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,10 +570,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c3d148340961745bb24dd8c0f5f0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputPlayer: {fileID: 3148258319757178487}
-  movementCar: {fileID: 4072636064853733164}
-  _carGameObject: {fileID: 8916679402623449723}
---- !u!114 &4072636064853733164
+  inputPlayer: {fileID: 4843894202176761171}
+  carMovement: {fileID: 3111932894776398856}
+  carGraphics: {fileID: 2191873538364662812}
+--- !u!114 &4843894202176761171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592489916072190721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ad77ef2e28d8b4797aee7f4532c601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3111932894776398856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -568,7 +614,7 @@ MonoBehaviour:
   - wheelModel: {fileID: 8035274136255970847}
     wheelCollider: {fileID: 5929272612233617973}
     axel: 1
---- !u!114 &3148258319757178487
+--- !u!114 &2191873538364662812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -577,9 +623,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5592489916072190721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3ad77ef2e28d8b4797aee7f4532c601, type: 3}
+  m_Script: {fileID: 11500000, guid: ca1913d686d1b214b8fca205914415e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  graphicsParent: {fileID: 2118404145728987344}
+  meshRenderer: {fileID: 6112444734562856972}
+  explosionTransform: {fileID: 5537453832493259934}
 --- !u!1 &5612360592678289850
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +700,37 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &5964522541823524501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5537453832493259934}
+  m_Layer: 0
+  m_Name: ExplosionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5537453832493259934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5964522541823524501}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: -9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4608566252453952920}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6002675162128050791
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,7 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8139614211880378561}
   m_Layer: 0
-  m_Name: YellowCar
+  m_Name: PlayerCar
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,7 +1179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4608566252453952920}
+  m_Father: {fileID: 3064863911451270276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2847353654579194056
 MeshFilter:

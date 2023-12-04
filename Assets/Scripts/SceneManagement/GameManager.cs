@@ -1,4 +1,4 @@
-using System;
+using Car;
 using Data;
 using Map;
 using Script.AI.Car;
@@ -10,20 +10,18 @@ public class GameManager : MonoBehaviour
     [Header("REFERENCES")] 
     public MapManager mapManager;
     public ScoreManager scoreManager;
-    public GameObject[] playerCarPrefab;    
-    public GameObject aiPrefab;
     public Transform[] aiSpawnPoints;
     
-    private int _indexCarPref;
+    private int _indexCarMaterial;
     private bool _doHandleEnd;
     
     private void Start()
     {
-        _indexCarPref = PlayerPrefs.GetInt("carIndex");
-        if (_indexCarPref == null)
+        _indexCarMaterial = PlayerPrefs.GetInt("carIndex");
+        if (_indexCarMaterial == null)
         {
-            _indexCarPref = 0;
-            PlayerPrefs.SetInt("carIndex", _indexCarPref);
+            _indexCarMaterial = 0;
+            PlayerPrefs.SetInt("carIndex", _indexCarMaterial);
             PlayerPrefs.Save();
         }
         
@@ -45,8 +43,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SpawnPlayerCar()
     {
-        var playerCar = Instantiate(playerCarPrefab[_indexCarPref], new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
+        var playerCar = Instantiate(Registry.gameConfig.playerCarPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
         playerCar.transform.eulerAngles = mapManager.currentMap.GetStartOrientation();
+        playerCar.GetComponentInChildren<CarManager>().carGraphics.UpdateMaterial(_indexCarMaterial);
     }
 
     private void SpawnAIs()
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Registry.gameConfig.aiAmount; i++)
         {
             var aiPos = new Vector3(aiSpawnPoints[i].position.x * Registry.mapConfig.sizeScaler/2, 0.5f, aiSpawnPoints[i].position.z * Registry.mapConfig.sizeScaler/2);
-            var newAI = Instantiate(aiPrefab, aiPos, Quaternion.identity, transform).GetComponent<AICar>();
+            var newAI = Instantiate(Registry.gameConfig.aiCarPrefab, aiPos, Quaternion.identity, transform).GetComponent<AICar>();
             newAI.UpdateTarget(mapManager.currentMap.GetNextCellTransform(0, 1));
             newAI.SetSpeed();
         }

@@ -198,10 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cars:
-  - {fileID: 5130470242267348589, guid: cf7d5e1e08f1a7542a48ffce38af1df1, type: 3}
   - {fileID: 5130470242267348589, guid: 4717318d3d6e05f48b6e69530877a778, type: 3}
-  - {fileID: 5130470242267348589, guid: 3e278fe3cc53a404a8cb633c053f773c, type: 3}
-  - {fileID: 5130470242267348589, guid: 2dbf4c0e06a5f8f4bbdbbfb6835dffe3, type: 3}
   nextButton: {fileID: 465577768}
   previousButton: {fileID: 1526781205}
   carLocation: {fileID: 19691303}
