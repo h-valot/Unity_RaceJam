@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 
 namespace Car
@@ -9,9 +10,9 @@ namespace Car
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private Transform explosionTransform;
 
-        public void UpdateMaterial(int materialIndex)
+        public void UpdateMaterial()
         {
-            meshRenderer.sharedMaterial = Registry.gameConfig.playerCarMaterials[materialIndex];
+            meshRenderer.sharedMaterial = Registry.gameConfig.playerCarMaterials[DataManager.data.carMaterialIndex];
         }
         
         public void AnimateExplosion()

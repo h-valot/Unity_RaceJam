@@ -2,6 +2,7 @@ using Car;
 using Data;
 using Map;
 using AI.Car;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("REFERENCES")] 
     public MapManager mapManager;
-    public ScoreManager scoreManager;
+    public ScoreUIManager scoreUIManager;
     public Transform[] aiSpawnPoints;
     
     private bool _doHandleEnd;
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
         mapManager.GenerateMap();
         SpawnPlayerCar();
         SpawnAIs();
-        scoreManager.Initialize();
+        scoreUIManager.Initialize();
     }
 
     /// <summary>
@@ -34,10 +35,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SpawnPlayerCar()
     {
-        var carMaterialIndex = PlayerPrefs.GetInt("carIndex");
         var playerCar = Instantiate(Registry.gameConfig.playerCarPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
         playerCar.transform.eulerAngles = mapManager.currentMap.GetStartOrientation();
-        playerCar.GetComponentInChildren<CarManager>().carGraphics.UpdateMaterial(carMaterialIndex);
+        playerCar.GetComponentInChildren<CarManager>().carGraphics.UpdateMaterial();
     }
 
     /// <summary>
@@ -73,13 +73,13 @@ public class GameManager : MonoBehaviour
         if (_doHandleEnd) return;
         _doHandleEnd = true;
 
-        scoreManager.HandleEnd(wallHitten);
+        scoreUIManager.HandleEnd(wallHitten);
         
         // scene management
         DataManager.data.raceAmount++;
         if (DataManager.data.raceAmount < Registry.gameConfig.raceAmount)
         {
-            await scoreManager.AnimateEndCircuit(wallHitten);
+            await scoreUIManager.AnimateEndCircuit(wallHitten);
             
             // reload current scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
                 DataManager.data.highestScore = DataManager.data.score;
             DataManager.Save();
             
-            await scoreManager.AnimateEndCycle();
+            await scoreUIManager.AnimateEndCycle();
             
             // load main menu scene
             SceneManager.LoadScene("MainMenu");

@@ -12,10 +12,12 @@ namespace Data
             score = data.score;
             highestScore = data.highestScore;
             raceAmount = data.raceAmount;
+            carMaterialIndex = data.carMaterialIndex;
         }
 
         public int score;
         public int highestScore;
         public int raceAmount;
+        public int carMaterialIndex;
     }
 }

@@ -8,8 +8,7 @@ namespace Map
         public MapView mapView;
         public MapGenerator mapGenerator;
     
-        [Header("DEBUGGING")]
-        public Map currentMap;
+        [HideInInspector] public Map currentMap;
 
         /// <summary>
         /// Generate a map of points and display those points as cells

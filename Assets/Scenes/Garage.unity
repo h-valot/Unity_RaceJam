@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 19691304}
   m_Layer: 0
-  m_Name: Car
+  m_Name: CarSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,12 +144,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19691303}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.976296, z: 0, w: 0.2164397}
+  m_LocalRotation: {x: -0, y: 0.976296, z: -0, w: 0.2164397}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 170676542}
+  m_Father: {fileID: 543177382}
   m_LocalEulerAnglesHint: {x: 0, y: 155, z: 0}
 --- !u!1 &170676541
 GameObject:
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 170676542}
   - component: {fileID: 170676543}
   m_Layer: 0
-  m_Name: CarSelection
+  m_Name: GarageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,10 +180,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 207720077}
-  - {fileID: 19691304}
-  m_Father: {fileID: 543177382}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &170676543
 MonoBehaviour:
@@ -197,11 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0b588d7ee973641bb73b4361091fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cars:
-  - {fileID: 5130470242267348589, guid: 4717318d3d6e05f48b6e69530877a778, type: 3}
-  nextButton: {fileID: 465577768}
-  previousButton: {fileID: 1526781205}
   carLocation: {fileID: 19691303}
+  garageUIManager: {fileID: 1987725159}
 --- !u!1 &207720076
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,12 +224,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207720076}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 125, y: 1, z: 125}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 170676542}
+  m_Father: {fileID: 543177382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &207720078
 CapsuleCollider:
@@ -403,10 +398,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1884013759}
-  - {fileID: 1526781206}
-  - {fileID: 465577769}
-  - {fileID: 810769421}
+  - {fileID: 1987725158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -545,13 +537,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465577768}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 671757541}
-  m_Father: {fileID: 270757302}
+  m_Father: {fileID: 1987725158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -615,8 +607,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 170676543}
-        m_TargetAssemblyTypeName: CarSelection, Assembly-CSharp
+      - m_Target: {fileID: 1987725159}
+        m_TargetAssemblyTypeName: GarageUIManager, Assembly-CSharp
         m_MethodName: PressNext
         m_Mode: 1
         m_Arguments:
@@ -658,8 +650,9 @@ Transform:
   m_Children:
   - {fileID: 1744435751}
   - {fileID: 936368146}
+  - {fileID: 207720077}
+  - {fileID: 19691304}
   - {fileID: 1023803868}
-  - {fileID: 170676542}
   - {fileID: 875851736}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -823,13 +816,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810769420}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 829123334}
-  m_Father: {fileID: 270757302}
+  m_Father: {fileID: 1987725158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -893,8 +886,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 170676543}
-        m_TargetAssemblyTypeName: CarSelection, Assembly-CSharp
+      - m_Target: {fileID: 1987725159}
+        m_TargetAssemblyTypeName: GarageUIManager, Assembly-CSharp
         m_MethodName: LaunchGameScene
         m_Mode: 1
         m_Arguments:
@@ -1576,13 +1569,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526781205}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1905869847}
-  m_Father: {fileID: 270757302}
+  m_Father: {fileID: 1987725158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1646,8 +1639,8 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 170676543}
-        m_TargetAssemblyTypeName: CarSelection, Assembly-CSharp
+      - m_Target: {fileID: 1987725159}
+        m_TargetAssemblyTypeName: GarageUIManager, Assembly-CSharp
         m_MethodName: PressPrevious
         m_Mode: 1
         m_Arguments:
@@ -1882,12 +1875,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884013758}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 270757302}
+  m_Father: {fileID: 1987725158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -2125,10 +2118,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905869846}
   m_CullTransparentMesh: 1
+--- !u!1 &1987725157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1987725158}
+  - component: {fileID: 1987725159}
+  m_Layer: 5
+  m_Name: GarageUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1987725158
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987725157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1884013759}
+  - {fileID: 1526781206}
+  - {fileID: 465577769}
+  - {fileID: 810769421}
+  m_Father: {fileID: 270757302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1987725159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987725157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb88b1f42e7e1342bfc286b0ac55bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 465577768}
+  previousButton: {fileID: 1526781205}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1034910218}
+  - {fileID: 170676542}
   - {fileID: 270757302}
   - {fileID: 543177382}

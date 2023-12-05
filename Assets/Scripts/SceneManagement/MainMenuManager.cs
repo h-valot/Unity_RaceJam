@@ -1,12 +1,10 @@
-using Data;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [Header("REFERENCES")] 
-    public HighestScoreDisplay highestScoreDisplay;
-    public GameObject settingsParent, creditsParent;
+    public MainMenuUIManager mainMenuUIManager;
     
     private void Start()
     {
@@ -17,25 +15,6 @@ public class MainMenuManager : MonoBehaviour
             return;
         }
         
-        highestScoreDisplay.UpdateDisplay();
-        CloseCredits();
-        CloseSettings();
+        mainMenuUIManager.Initialize();
     }
-
-    public void Play()
-    {
-        DataManager.data.score = 0;
-        DataManager.data.raceAmount = 0;
-        SceneManager.LoadScene("Game");
-    }
-
-    public void LoadGarage()
-    {
-        SceneManager.LoadScene("Garage");
-    }
-
-    public void OpenSettings() => settingsParent.SetActive(true);
-    public void CloseSettings() => settingsParent.SetActive(false);
-    public void OpenCredits() => creditsParent.SetActive(true);
-    public void CloseCredits() => creditsParent.SetActive(false);
 }

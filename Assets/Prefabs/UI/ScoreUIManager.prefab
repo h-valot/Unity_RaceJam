@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4793812412679293798}
   - component: {fileID: 7807675086049561312}
   m_Layer: 5
-  m_Name: Score_Text
+  m_Name: TMP_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 100
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 2724724385927537181}
   - component: {fileID: 2975625903075394098}
   m_Layer: 5
-  m_Name: Timer_Text
+  m_Name: TMP_Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 100
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 3654910985516897258}
   - component: {fileID: 1800356617983147156}
   m_Layer: 5
-  m_Name: ScoreManager
+  m_Name: ScoreUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
