@@ -1,4 +1,3 @@
-using Script.AI.Car;
 using UnityEngine;
 
 namespace Map
@@ -10,19 +9,6 @@ namespace Map
         public int place;
         
         [HideInInspector] public MapManager mapManager;
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (isFinishCell) Events.onCircuitEnded?.Invoke(false);
-            }
-
-            if (other.transform.parent.TryGetComponent<AICar>(out var aiCar) && aiCar != null)
-            {
-                aiCar.UpdateTarget(mapManager.currentMap.GetNextCellTransform(place, 1));
-            }
-        }
 
         public void ClearLeftWall() => leftWall.SetActive(false);
         public void ClearRightWall() => rightWall.SetActive(false);

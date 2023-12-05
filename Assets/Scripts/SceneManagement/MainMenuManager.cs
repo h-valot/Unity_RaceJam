@@ -26,7 +26,12 @@ public class MainMenuManager : MonoBehaviour
     {
         DataManager.data.score = 0;
         DataManager.data.raceAmount = 0;
-        SceneManager.LoadScene("SelectCar");
+        SceneManager.LoadScene("Game");
+    }
+
+    public void LoadGarage()
+    {
+        SceneManager.LoadScene("Garage");
     }
 
     public void OpenSettings() => settingsParent.SetActive(true);

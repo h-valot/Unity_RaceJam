@@ -1,7 +1,7 @@
 using Car;
 using Data;
 using Map;
-using Script.AI.Car;
+using AI.Car;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,19 +12,10 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public Transform[] aiSpawnPoints;
     
-    private int _indexCarMaterial;
     private bool _doHandleEnd;
     
     private void Start()
     {
-        _indexCarMaterial = PlayerPrefs.GetInt("carIndex");
-        if (_indexCarMaterial == null)
-        {
-            _indexCarMaterial = 0;
-            PlayerPrefs.SetInt("carIndex", _indexCarMaterial);
-            PlayerPrefs.Save();
-        }
-        
         // exit, if registry isn't initialized
         if (!Registry.isInitialized)
         {
@@ -39,15 +30,19 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Instantiate the player's car and make it face the correct direction
+    /// Instantiate the player's car with the desired skin and make it face the correct direction
     /// </summary>
     private void SpawnPlayerCar()
     {
+        var carMaterialIndex = PlayerPrefs.GetInt("carIndex");
         var playerCar = Instantiate(Registry.gameConfig.playerCarPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity, transform);
         playerCar.transform.eulerAngles = mapManager.currentMap.GetStartOrientation();
-        playerCar.GetComponentInChildren<CarManager>().carGraphics.UpdateMaterial(_indexCarMaterial);
+        playerCar.GetComponentInChildren<CarManager>().carGraphics.UpdateMaterial(carMaterialIndex);
     }
 
+    /// <summary>
+    /// Spawn AI cars next to the player
+    /// </summary>
     private void SpawnAIs()
     {
         for (int i = 0; i < Registry.gameConfig.aiAmount; i++)
@@ -69,26 +64,19 @@ public class GameManager : MonoBehaviour
         Events.onCircuitEnded -= HandleEnd;
     }
 
-    private void HandleEnd(bool wallHitten)
+    /// <summary>
+    /// Manages end game and load a new game or menu scene
+    /// </summary>
+    private async void HandleEnd(bool wallHitten)
     {
         // cannot enter this fonction several times
         if (_doHandleEnd) return;
         _doHandleEnd = true;
+
+        scoreManager.HandleEnd(wallHitten);
         
-        scoreManager.StopTimer();
-        
-        if (wallHitten) scoreManager.LoseScore();
-        else scoreManager.AddScore();
-        
-        Reload(wallHitten);
-    }
-    
-    private async void Reload(bool wallHitten)
-    {
-        // save data
+        // scene management
         DataManager.data.raceAmount++;
-        DataManager.Save();
-        
         if (DataManager.data.raceAmount < Registry.gameConfig.raceAmount)
         {
             await scoreManager.AnimateEndCircuit(wallHitten);
@@ -101,6 +89,7 @@ public class GameManager : MonoBehaviour
             // save highest score
             if (DataManager.data.score > DataManager.data.highestScore)
                 DataManager.data.highestScore = DataManager.data.score;
+            DataManager.Save();
             
             await scoreManager.AnimateEndCycle();
             

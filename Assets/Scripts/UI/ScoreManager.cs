@@ -43,6 +43,13 @@ public class ScoreManager : MonoBehaviour
         currentTime -= Time.deltaTime;
         timerTM.text = $"Time: {Mathf.CeilToInt(currentTime)}s";
     }
+
+    public void HandleEnd(bool wallHitten)
+    {
+        StopTimer();
+        if (wallHitten) LoseScore();
+        else AddScore();
+    }
     
     public void AddScore()
     {

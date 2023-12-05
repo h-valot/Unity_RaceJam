@@ -13,14 +13,6 @@ public class CarSelection : MonoBehaviour
     void Start()
     {
         _currentCarIndex = PlayerPrefs.GetInt("carIndex");
-
-        if (_currentCarIndex == null)
-        {
-            _currentCarIndex = 0;
-            PlayerPrefs.SetInt("carIndex", _currentCarIndex);
-            PlayerPrefs.Save();
-        }
-
         UpdateButtonDisplay();
         SpawnCar();
     }
@@ -58,6 +50,6 @@ public class CarSelection : MonoBehaviour
     
     public void LaunchGameScene()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("MainMenu");
     }
 }

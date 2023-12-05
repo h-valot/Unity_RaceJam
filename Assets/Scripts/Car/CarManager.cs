@@ -1,3 +1,5 @@
+using System;
+using Map;
 using UnityEngine;
 
 namespace Car
@@ -14,13 +16,25 @@ namespace Car
             carMovement.ReceiveInput(inputPlayer.horizontalInput, inputPlayer.verticalInput);
         }
         
-        public void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision)
         {
-            // exit, if the collided object isn't a wall
-            if (!collision.gameObject.CompareTag("Wall")) return;
+            // handle wall collision
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                carGraphics.AnimateExplosion();
+                Events.onCircuitEnded?.Invoke(true);
+            }
+        }
 
-            carGraphics.AnimateExplosion();
-            Events.onCircuitEnded?.Invoke(true);
+        private void OnTriggerEnter(Collider other)
+        {
+            // handle get to the finish cell
+            if (other.TryGetComponent<Cell>(out var cell) &&
+                cell != null &&
+                cell.isFinishCell)
+            {
+                Events.onCircuitEnded?.Invoke(false);
+            }
         }
     }
 }

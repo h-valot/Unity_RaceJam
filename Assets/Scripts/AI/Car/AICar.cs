@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using Map;
+using UnityEngine;
 
-namespace Script.AI.Car
+namespace AI.Car
 {
     public class AICar : MonoBehaviour
     {
@@ -84,6 +86,14 @@ namespace Script.AI.Car
         public void SetSpeed()
         {
             this._speed = Registry.gameConfig.aiMovementSpeed.GetValue();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            // exit, if the collided object isn't a cell
+            if (!other.TryGetComponent<Cell>(out var cell) && cell == null) return;
+            
+            UpdateTarget(cell.mapManager.currentMap.GetNextCellTransform(cell.place, 1));
         }
     }
 }

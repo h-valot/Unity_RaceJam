@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Script.AI
+namespace AI
 {
     [UnityEngine.CreateAssetMenu(fileName = "NewAIStimulus", menuName = "AI/New AI Stimulus", order = 0)]
     public class AIStimulus : ScriptableObject

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Script.AI
+namespace AI
 {
     public class AIStimulusResult
     {
