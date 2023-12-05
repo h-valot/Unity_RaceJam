@@ -79,7 +79,14 @@ namespace AI.Car
         private void OnTriggerEnter(Collider other)
         {
             // exit, if the collided object isn't a cell
-            if (!other.TryGetComponent<Cell>(out var cell) && cell == null) return;
+            if (!other.TryGetComponent<Cell>(out var cell) || cell == null) return;
+            
+            // ends circuit if an ai ends it
+            if (cell.isFinishCell)
+            {
+                Events.onCircuitEnded?.Invoke(EndSituation.AI_WINS);
+                return;
+            }
             
             UpdateTarget(cell.mapManager.currentMap.GetNextCellTransform(cell.place, 1));
         }

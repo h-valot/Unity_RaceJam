@@ -20,12 +20,12 @@ public class GameConfig : ScriptableObject
     [Header("SCORE")]
     [Tooltip("Higher is this value, higher will be the player's score")]
     public float scoreMultiplier = 4;
-    public int scoreLossPlayerHitWall = 10;
+    public int loseScoreAmount = 10;
 
     [Header("SCORE DISPLAY")]
     public float endCircuitScoreDuration;
     public float endCycleScoreDuration;
-    [TextArea] public string[] loserSentences, winnerSentences;
+    [TextArea] public string[] playerDeadSentences, playerWinsSentences, aiWinsSentences;
 
     [Header("VFX")] 
     public GameObject vfxExplosion;

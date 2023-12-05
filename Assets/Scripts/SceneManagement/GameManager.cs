@@ -67,19 +67,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Manages end game and load a new game or menu scene
     /// </summary>
-    private async void HandleEnd(bool wallHitten)
+    private async void HandleEnd(EndSituation endSituation)
     {
         // cannot enter this fonction several times
         if (_doHandleEnd) return;
         _doHandleEnd = true;
 
-        scoreUIManager.HandleEnd(wallHitten);
+        scoreUIManager.HandleEnd(endSituation);
         
         // scene management
         DataManager.data.raceAmount++;
         if (DataManager.data.raceAmount < Registry.gameConfig.raceAmount)
         {
-            await scoreUIManager.AnimateEndCircuit(wallHitten);
+            await scoreUIManager.AnimateEndCircuit(endSituation);
             
             // reload current scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

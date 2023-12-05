@@ -1,9 +1,11 @@
+using System;
 using System.Threading.Tasks;
 using Data;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace UI
 {
@@ -46,11 +48,11 @@ namespace UI
             timerTM.text = $"Time: {Mathf.CeilToInt(currentTime)}s";
         }
 
-        public void HandleEnd(bool wallHitten)
+        public void HandleEnd(EndSituation endSituation)
         {
             StopTimer();
-            if (wallHitten) LoseScore();
-            else AddScore();
+            if (endSituation == EndSituation.PLAYER_WINS) AddScore();
+            else LoseScore();
         }
     
         private void AddScore()
@@ -62,23 +64,35 @@ namespace UI
 
         private void LoseScore()
         {
-            DataManager.data.score -= Registry.gameConfig.scoreLossPlayerHitWall;
+            DataManager.data.score -= Registry.gameConfig.loseScoreAmount;
             if (DataManager.data.score < 0) DataManager.data.score = 0;
             DisplayScore();
         }
     
-        public async Task AnimateEndCircuit(bool wallHitten)
+        public async Task AnimateEndCircuit(EndSituation endSituation)
         {
             endCircuitParent.SetActive(true);
 
-            endCircuitTitleTM.text = wallHitten ? "FAILED" : "COMPLETED";
-            endCircuitTimeTM.text = wallHitten ? "Score time: 0" : $"Score time: {Mathf.CeilToInt(currentTime)}";
+            switch (endSituation)
+            {
+                case EndSituation.PLAYER_WINS:
+                    endCircuitTitleTM.text = "COMPLETED";
+                    endCircuitTimeTM.text = $"Score: {Mathf.CeilToInt(currentTime)}";
+                    endCircuitSentenceTM.text = Registry.gameConfig.playerWinsSentences[Random.Range(0, Registry.gameConfig.playerWinsSentences.Length)];
+                    break;
+                case EndSituation.AI_WINS:
+                    endCircuitTitleTM.text = "YOU GOT OVERTAKEN";
+                    endCircuitTimeTM.text = $"Score: {-Registry.gameConfig.loseScoreAmount}";
+                    endCircuitSentenceTM.text = Registry.gameConfig.aiWinsSentences[Random.Range(0, Registry.gameConfig.aiWinsSentences.Length)];
+                    break;
+                case EndSituation.PLAYER_DEAD:
+                    endCircuitTitleTM.text = "FAILED";
+                    endCircuitTimeTM.text = $"Score: {-Registry.gameConfig.loseScoreAmount}";
+                    endCircuitSentenceTM.text = Registry.gameConfig.playerDeadSentences[Random.Range(0, Registry.gameConfig.playerDeadSentences.Length)];
+                    break;
+            }
             endCircuitTotalScoreTM.text = $"Total score: {DataManager.data.score}";
         
-            endCircuitSentenceTM.text = wallHitten
-                ? Registry.gameConfig.loserSentences[Random.Range(0, Registry.gameConfig.loserSentences.Length)]
-                : Registry.gameConfig.winnerSentences[Random.Range(0, Registry.gameConfig.winnerSentences.Length)];
-
             var sequence = DOTween.Sequence();
             sequence.SetLoops(-1);
             sequence.Append(endCircuitSentenceTM.transform.DOScale(1.3f, 0.5f));

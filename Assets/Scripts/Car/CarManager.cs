@@ -22,7 +22,7 @@ namespace Car
             if (collision.gameObject.CompareTag("Wall"))
             {
                 carGraphics.AnimateExplosion();
-                Events.onCircuitEnded?.Invoke(true);
+                Events.onCircuitEnded?.Invoke(EndSituation.PLAYER_DEAD);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Car
                 cell != null &&
                 cell.isFinishCell)
             {
-                Events.onCircuitEnded?.Invoke(false);
+                Events.onCircuitEnded?.Invoke(EndSituation.PLAYER_WINS);
             }
         }
     }
