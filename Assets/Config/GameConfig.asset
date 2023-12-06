@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   startingScene: MainMenu
-  raceAmount: 5
+  raceAmount: 3
   aiCarPrefab: {fileID: 2964517469739498489, guid: 6ea6801ac4bbd544eb0321d6a23536ea, type: 3}
   aiAmount: 4
   aiMovementSpeed:
     min: 7
-    max: 12
+    max: 11
   scoreMultiplier: 3
   loseScoreAmount: 10
   endCircuitScoreDuration: 3.74
@@ -34,6 +34,12 @@ MonoBehaviour:
   - Beaten by an AI, seriously ?
   - You sould stop play video games.
   - They are not even human.
+  startCircuitNumberDuration: 0.5
+  startCircuitText:
+  - 3
+  - 2
+  - 1
+  - GO
   vfxExplosion: {fileID: 4813014152482040030, guid: 92da0559c12070041bb42ab1374eff48, type: 3}
   playerCarPrefab: {fileID: 8916679402623449723, guid: 73037c46acb32c640b0d7d0d594e94f4, type: 3}
   modelCarPrefab: {fileID: 5130470242267348589, guid: 4717318d3d6e05f48b6e69530877a778, type: 3}

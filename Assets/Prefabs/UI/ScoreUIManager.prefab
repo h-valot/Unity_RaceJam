@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 8485122243614446386}
   - component: {fileID: 1398751405718280554}
   m_Layer: 5
-  m_Name: Background
+  m_Name: IMG_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 30286887419481586}
   - component: {fileID: 2376986740626699025}
   m_Layer: 5
-  m_Name: I_Loading
+  m_Name: IMG_Loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 2690816642754880771}
   - component: {fileID: 4385638937886277934}
   m_Layer: 5
-  m_Name: I_Loading
+  m_Name: IMG_Loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1174,7 +1174,6 @@ MonoBehaviour:
   endCycleFillImage: {fileID: 2376986740626699025}
   endCycleTotalScoreTM: {fileID: 2155680273486214159}
   endCycleHighestScoreTM: {fileID: 7599100584264337861}
-  currentTime: 0
 --- !u!1 &7716170229280679825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,7 +1186,7 @@ GameObject:
   - component: {fileID: 1917483958986046957}
   - component: {fileID: 5558878528082968926}
   m_Layer: 5
-  m_Name: Background
+  m_Name: IMG_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -27,6 +27,10 @@ public class GameConfig : ScriptableObject
     public float endCycleScoreDuration;
     [TextArea] public string[] playerDeadSentences, playerWinsSentences, aiWinsSentences;
 
+    [Header("START DISPLAY")] 
+    public float startCircuitNumberDuration;
+    public string[] startCircuitText;
+
     [Header("VFX")] 
     public GameObject vfxExplosion;
 

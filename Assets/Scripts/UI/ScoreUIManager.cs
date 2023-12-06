@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Data;
 using DG.Tweening;
@@ -28,48 +27,13 @@ namespace UI
         public Image endCycleFillImage;
         public TextMeshProUGUI endCycleTotalScoreTM;
         public TextMeshProUGUI endCycleHighestScoreTM;
-    
-        [HideInInspector] public float currentTime;
-        private bool _canRunTimer;
-
+        
         public void Initialize()
         {
-            currentTime = Registry.mapConfig.circuitSize * Registry.gameConfig.scoreMultiplier;
-        
-            DisplayScore();
-            StartTimer();
+            UpdateScoreDisplay();
         }
     
-        private void Update()
-        {
-            if (!_canRunTimer) return;
-        
-            currentTime -= Time.deltaTime;
-            timerTM.text = $"Time: {Mathf.CeilToInt(currentTime)}s";
-        }
-
-        public void HandleEnd(EndSituation endSituation)
-        {
-            StopTimer();
-            if (endSituation == EndSituation.PLAYER_WINS) AddScore();
-            else LoseScore();
-        }
-    
-        private void AddScore()
-        {
-            DataManager.data.score += Mathf.CeilToInt(currentTime);
-            if (DataManager.data.score < 0) DataManager.data.score = 0;
-            DisplayScore();
-        }
-
-        private void LoseScore()
-        {
-            DataManager.data.score -= Registry.gameConfig.loseScoreAmount;
-            if (DataManager.data.score < 0) DataManager.data.score = 0;
-            DisplayScore();
-        }
-    
-        public async Task AnimateEndCircuit(EndSituation endSituation)
+        public async Task AnimateEndCircuit(EndSituation endSituation, float currentTime)
         {
             endCircuitParent.SetActive(true);
 
@@ -110,14 +74,20 @@ namespace UI
         
             endCycleTotalScoreTM.text = $"Total score: {DataManager.data.score}";
             endCycleHighestScoreTM.text = $"Highest score: {DataManager.data.highestScore}";
-            endCycleFillImage.DOFillAmount(1, Registry.gameConfig.endCycleScoreDuration);
+            endCycleFillImage.DOFillAmount(0, Registry.gameConfig.endCycleScoreDuration);
         
             await Task.Delay(1000 * Mathf.RoundToInt(Registry.gameConfig.endCycleScoreDuration));
             if (endCycleParent != null) endCycleParent.SetActive(false);
         }
-    
-        private void DisplayScore() => scoreTM.text = $"Score: {DataManager.data.score}";
-        private void StartTimer() => _canRunTimer = true;
-        private void StopTimer() => _canRunTimer = false;
+
+        public void UpdateTimeDisplay(float currentTime)
+        {
+            timerTM.text = $"Time: {Mathf.CeilToInt(currentTime)}s";
+        }
+        
+        public void UpdateScoreDisplay()
+        {
+            scoreTM.text = $"Score: {DataManager.data.score}";
+        }
     }
 }
