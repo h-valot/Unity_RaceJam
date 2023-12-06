@@ -12,11 +12,13 @@ namespace Score
         private float _currentTime;
         private bool _canRunTimer;
 
+        /// <summary>
+        /// Sets the timer start value based on the circuit size and the score multiplier
+        /// </summary>
         public void Initialize()
         {
             _currentTime = Registry.mapConfig.circuitSize * Registry.gameConfig.scoreMultiplier;
             scoreUIManager.Initialize();
-            StartTimer();
         }
         
         private void Update()
@@ -27,6 +29,10 @@ namespace Score
             scoreUIManager.UpdateTimeDisplay(_currentTime);
         }
         
+        /// <summary>
+        /// Stops the timer and attributes score based on the end situation
+        /// </summary>
+        /// <param name="endSituation">PLAYER_WINS add score based on timer - OTHERS lose fix amount of score</param>
         public void HandleEnd(EndSituation endSituation)
         {
             StopTimer();
@@ -34,6 +40,9 @@ namespace Score
             else LoseScore();
         }
     
+        /// <summary>
+        /// Add score based on the timer
+        /// </summary>
         private void AddScore()
         {
             DataManager.data.score += Mathf.CeilToInt(_currentTime);
@@ -41,6 +50,9 @@ namespace Score
             scoreUIManager.UpdateScoreDisplay();
         }
 
+        /// <summary>
+        /// Lose score based on a fixed value setted in game config
+        /// </summary>
         private void LoseScore()
         {
             DataManager.data.score -= Registry.gameConfig.loseScoreAmount;
@@ -49,7 +61,7 @@ namespace Score
         }
 
         private void StopTimer() => _canRunTimer = false;
-        private void StartTimer() => _canRunTimer = true;
+        public void StartTimer() => _canRunTimer = true;
         public float GetTime() => _currentTime;
     }
 }

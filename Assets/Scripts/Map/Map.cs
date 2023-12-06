@@ -6,7 +6,7 @@ namespace Map
     [System.Serializable]
     public class Map
     {
-        public List<Point> circuit = new List<Point>();
+        public List<Point> circuit;
     
         public Map(List<Point> circuit)
         {

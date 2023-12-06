@@ -9,7 +9,7 @@ namespace AI.Car
         [SerializeField] private Rigidbody rigidBody;
         
         [Header("SETTINGS")]
-        [SerializeField] private bool focusPlayer = false;
+        [SerializeField] private bool focusPlayer;
         
         private Transform _target;
         private Vector3 _direction;
@@ -63,13 +63,16 @@ namespace AI.Car
             transform.rotation = Quaternion.LookRotation(direction);
         }
         
+        /// <summary>
+        /// Sets ai direction target to the given one
+        /// </summary>
         public void UpdateTarget(Transform newTarget)
         {
             _target = newTarget;
         }
 
         /// <summary>
-        /// Set the ai car speed to a random value between a min and a max set in the game config.
+        /// Sets the ai car speed to a random value between a min and a max set in the game config.
         /// </summary>
         public void SetSpeed()
         {

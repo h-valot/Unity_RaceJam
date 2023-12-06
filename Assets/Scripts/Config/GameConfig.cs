@@ -8,7 +8,7 @@ public class GameConfig : ScriptableObject
     
     [Header("GAME")]
     [Tooltip("Number of circuit played in one cycle")]
-    [Range(1, 10)] public int raceAmount = 5;
+    [Range(1, 10)] public int raceAmount = 3;
     
     [Header("AI")]
     public GameObject aiCarPrefab;
@@ -19,7 +19,7 @@ public class GameConfig : ScriptableObject
     
     [Header("SCORE")]
     [Tooltip("Higher is this value, higher will be the player's score")]
-    public float scoreMultiplier = 4;
+    public float scoreMultiplier = 3;
     public int loseScoreAmount = 10;
 
     [Header("SCORE DISPLAY")]

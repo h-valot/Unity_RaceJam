@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AI
 {
-    [UnityEngine.CreateAssetMenu(fileName = "NewAIStimulus", menuName = "AI/New AI Stimulus", order = 0)]
+    [CreateAssetMenu(fileName = "NewAIStimulus", menuName = "AI/New AI Stimulus", order = 0)]
     public class AIStimulus : ScriptableObject
     {
         public List<string> tags = new List<string>();

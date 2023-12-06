@@ -15,7 +15,7 @@ namespace UI
     
         public void Initialize(CarModel carModel)
         {
-            this._carModel = carModel;
+            _carModel = carModel;
             UpdateButtonDisplay();
         }
     
@@ -33,6 +33,9 @@ namespace UI
             UpdateButtonDisplay();
         }
     
+        /// <summary>
+        /// Hides buttons to avoid out of bounds exceptions
+        /// </summary>
         private void UpdateButtonDisplay()
         {
             nextButton.SetActive(DataManager.data.carMaterialIndex < Registry.gameConfig.playerCarMaterials.Length - 1);

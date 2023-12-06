@@ -10,6 +10,9 @@ namespace Map
         private List<Point> _circuit = new List<Point>();
         private readonly List<Point> _points = new List<Point>();
 
+        /// <summary>
+        /// Returns a randomly generated list of points as a map
+        /// </summary>
         public Map GetMap()
         {
             InitializeMapGrid();

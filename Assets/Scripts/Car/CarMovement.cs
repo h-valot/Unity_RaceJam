@@ -8,8 +8,8 @@ namespace Car
     {
         public enum Axel
         {
-            Front,
-            Rear
+            FRONT,
+            REAR
         }
 
         [Serializable]
@@ -28,14 +28,14 @@ namespace Car
 
         [SerializeField] private List<Wheel> wheels;
 
-        private float moveInput;
-        private float steerInput;
-        private Rigidbody carRb;
+        private float _moveInput;
+        private float _steerInput;
+        private Rigidbody _carRigidbody;
 
         private void Start()
         {
-            carRb = GetComponent<Rigidbody>();
-            carRb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+            _carRigidbody = GetComponent<Rigidbody>();
+            _carRigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
 
         private void Update()
@@ -50,42 +50,51 @@ namespace Car
             Brake();
         }
 
+        /// <summary>
+        /// Gathers player inputs
+        /// </summary>
         public void ReceiveInput(float horizontalInput, float verticalInput)
         {
-            moveInput = verticalInput;
-            steerInput = horizontalInput;
+            _moveInput = verticalInput;
+            _steerInput = horizontalInput;
         }
     
-        // Move Car
+        /// <summary>
+        /// Move the car
+        /// </summary>
         private void Move()
         {
             foreach(var wheel in wheels)
             {
-                wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+                wheel.wheelCollider.motorTorque = _moveInput * 600 * maxAcceleration * Time.deltaTime;
             }
         }
     
-        // Turn the car
+        /// <summary>
+        /// Turns the car
+        /// </summary>
         private void Steer()
         {
             foreach(var wheel in wheels)
             {
-                if (wheel.axel == Axel.Front)
+                if (wheel.axel == Axel.FRONT)
                 {
-                    var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
+                    var _steerAngle = _steerInput * turnSensitivity * maxSteerAngle;
                     wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
                 }
             }
         }
 
-        // Stop the car
+        /// <summary>
+        /// Stops the car's movement
+        /// </summary>
         private void Brake()
         {
-            if (moveInput == 0)
+            if (_moveInput == 0)
             {
                 foreach (var wheel in wheels)
                 {
-                    // Brake the car
+                    // brake the car
                     wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
                 }
 
@@ -94,23 +103,23 @@ namespace Car
             {
                 foreach (var wheel in wheels)
                 {
-                    // Release the brakes
+                    // release the brakes
                     wheel.wheelCollider.brakeTorque = 0;
                 }
 
             }
         }
     
-        // Make the animation of the car wheels
+        /// <summary>
+        /// Animates the car wheels
+        /// </summary>
         private void AnimateWheels()
         {
             foreach(var wheel in wheels)
             {
-                Quaternion rot;
-                Vector3 pos;
-                wheel.wheelCollider.GetWorldPose(out pos, out rot);
-                wheel.wheelModel.transform.position = pos;
-                wheel.wheelModel.transform.rotation = rot;
+                wheel.wheelCollider.GetWorldPose(out var position, out var rotation);
+                wheel.wheelModel.transform.position = position;
+                wheel.wheelModel.transform.rotation = rotation;
             }
         }
     }

@@ -19,10 +19,12 @@ public class GarageManager : MonoBehaviour
             return;
         }
         
-        var carModel = SpawnCar();
-        garageUIManager.Initialize(carModel);
+        garageUIManager.Initialize(SpawnCar());
     }
 
+    /// <summary>
+    /// Returns a newly spawned car model
+    /// </summary>
     private CarModel SpawnCar()
     {
         var carModel = Instantiate(Registry.gameConfig.modelCarPrefab, carLocation.transform.position, carLocation.transform.rotation).GetComponent<CarModel>();

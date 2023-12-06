@@ -15,6 +15,9 @@ public class StartGameManager : MonoBehaviour
     public MapManager mapManager;
     public StartGameUIManager startGameUIManager;
 
+    /// <summary>
+    /// Generates a new map. Spawn the player's car and ai's.
+    /// </summary>
     public void Initialize()
     {
         mapManager.GenerateMap();
@@ -23,6 +26,9 @@ public class StartGameManager : MonoBehaviour
         scoreManager.Initialize();
     }
 
+    /// <summary>
+    /// Animates start counter. Starts score timer
+    /// </summary>
     public async void StartGame()
     {        
         startGameUIManager.Initialize();
@@ -30,6 +36,8 @@ public class StartGameManager : MonoBehaviour
         Time.timeScale = 0f;
         await startGameUIManager.AnimateStart();
         Time.timeScale = 1;
+
+        scoreManager.StartTimer();
     }
 
     /// <summary>

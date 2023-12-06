@@ -5,10 +5,9 @@ namespace Map
     [System.Serializable]
     public class Point
     {
-        public int x, z;
-        public Point previous;
-        public bool isVisited;
-
+        [HideInInspector] public int x, z;
+        [HideInInspector] public Point previous;
+        [HideInInspector] public bool isVisited;
         [HideInInspector] public Cell graphics;
     
         public Point(int x, int z)
@@ -17,6 +16,9 @@ namespace Map
             this.z = z;
         }
 
+        /// <summary>
+        /// Sets isVisited to TRUE
+        /// </summary>
         public void Visit() => isVisited = true;
     }
 }

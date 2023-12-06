@@ -1,4 +1,3 @@
-using System;
 using Map;
 using UnityEngine;
 
@@ -11,9 +10,10 @@ namespace Car
         [SerializeField] private CarMovement carMovement;
         [SerializeField] public CarGraphics carGraphics;
 
-        void Update()
+        private void Update()
         {
             carMovement.ReceiveInput(inputPlayer.horizontalInput, inputPlayer.verticalInput);
+            carGraphics.ToggleAccelerationParticules(inputPlayer.DoGatherInput());
         }
         
         private void OnCollisionEnter(Collision collision)

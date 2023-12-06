@@ -4,10 +4,14 @@ namespace Map
 {
     public class Cell : MonoBehaviour
     {
-        public GameObject leftWall, rightWall, frontWall, backWall;
-        public bool isFinishCell;
-        public int place;
+        [Header("REFERENCES")]
+        public GameObject leftWall;
+        public GameObject rightWall;
+        public GameObject frontWall;
+        public GameObject backWall;
         
+        [HideInInspector] public bool isFinishCell;
+        [HideInInspector] public int place;
         [HideInInspector] public MapManager mapManager;
 
         public void ClearLeftWall() => leftWall.SetActive(false);

@@ -11,18 +11,18 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private Transform carTarget;
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         FollowTarget();
     }
 
-    void FollowTarget()
+    private void FollowTarget()
     {
         HandleMovement();
         HandleRotation();
     }
 
-    void HandleMovement()
+    private void HandleMovement()
     {
         Vector3 targetPos;
         if (carTarget.InverseTransformDirection(carTarget.GetComponent<Rigidbody>().velocity).z < 0)
@@ -35,13 +35,11 @@ public class CameraController : MonoBehaviour
         }
         transform.position = Vector3.Lerp(transform.position, targetPos, moveSmoothness * Time.deltaTime);
     }
-
-    void HandleRotation()
+    
+    private void HandleRotation()
     {
         var direction = carTarget.position - transform.position;
-        var rotation = new Quaternion();
-
-        rotation = Quaternion.LookRotation(direction + rotOffset, Vector3.up);
+        var rotation = Quaternion.LookRotation(direction + rotOffset, Vector3.up);
 
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotSmoothness * Time.deltaTime);
     }

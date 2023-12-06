@@ -21,14 +21,14 @@ public class EndGameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Manages end game and load a new game or menu scene
+    /// Manages end game and load the corresponding scene
     /// </summary>
     private async void HandleEnd(EndSituation endSituation)
     {
         // cannot enter this fonction several times
         if (_doHandleEnd) return;
         _doHandleEnd = true;
-
+        
         scoreManager.HandleEnd(endSituation);
 
         await scoreManager.scoreUIManager.AnimateEndCircuit(endSituation, scoreManager.GetTime());
