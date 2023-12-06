@@ -17,8 +17,8 @@ MonoBehaviour:
   aiCarPrefab: {fileID: 2964517469739498489, guid: 6ea6801ac4bbd544eb0321d6a23536ea, type: 3}
   aiAmount: 4
   aiMovementSpeed:
-    min: 7
-    max: 11
+    min: 6
+    max: 9
   scoreMultiplier: 3
   loseScoreAmount: 10
   endCircuitScoreDuration: 3.74

@@ -34,6 +34,7 @@ namespace UI
 
         public void Play()
         {
+            
             DataManager.data.score = 0;
             DataManager.data.raceAmount = 0;
             SceneManager.LoadScene("Game");

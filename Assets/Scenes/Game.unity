@@ -297,6 +297,10 @@ PrefabInstance:
       propertyPath: startGameUIManager
       value: 
       objectReference: {fileID: 1289930163}
+    - target: {fileID: 8143063988980462250, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
+      propertyPath: m_Name
+      value: MusicBackground
+      objectReference: {fileID: 0}
     - target: {fileID: 9101844898238520772, guid: f54cf4c07c411a44791a7505f4aefb6e, type: 3}
       propertyPath: AIAmount
       value: 1
