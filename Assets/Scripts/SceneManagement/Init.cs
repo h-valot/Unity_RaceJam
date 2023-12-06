@@ -5,21 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class Init : MonoBehaviour
 {
+    [Header("CONFIGS")]
     public MapConfig mapConfig;
     public GameConfig gameConfig;
+
+    [Header("REFERENCES")]
+    public InitLoadingScreenUIManager initLoadingScreenUIManager;
     
-    private void Start()
+    private async void Start()
     {
-        var asyncOperation = SceneManager.LoadSceneAsync(gameConfig.startingScene);
-        
         // synchronize scriptable objects
         Registry.mapConfig = mapConfig;
         Registry.gameConfig = gameConfig;
 
         // load persistant data from cache
         DataManager.Load();
+
+        await initLoadingScreenUIManager.AnimateLoadingScreen();
         
         Registry.isInitialized = true;
-        asyncOperation.allowSceneActivation = true;
+        SceneManager.LoadScene(gameConfig.startingScene);
     }
 }

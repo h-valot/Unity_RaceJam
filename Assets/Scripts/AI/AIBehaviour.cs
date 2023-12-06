@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Script.AI
+namespace AI
 {
     public class AIBehaviour : MonoBehaviour
     {

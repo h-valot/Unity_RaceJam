@@ -6,16 +6,16 @@ namespace Map
     {
         [Header("REFERENCE")] 
         public MapView mapView;
+        public MapGenerator mapGenerator;
     
-        [Header("DEBUGGING")]
-        public Map currentMap;
-    
+        [HideInInspector] public Map currentMap;
+
         /// <summary>
         /// Generate a map of points and display those points as cells
         /// </summary>
         public void GenerateMap()
         {
-            currentMap = MapGenerator.GetMap();
+            currentMap = mapGenerator.GetMap();
             mapView.ShowMap(currentMap, this);
         }
     }

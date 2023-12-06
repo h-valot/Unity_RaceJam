@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Script.AI
+namespace AI
 {
     public class AIStimulusCallBack : MonoBehaviour
     {

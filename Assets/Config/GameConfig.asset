@@ -13,21 +13,39 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   startingScene: MainMenu
-  raceAmount: 2
-  aiAmount: 2
+  raceAmount: 3
+  aiCarPrefab: {fileID: 2964517469739498489, guid: 6ea6801ac4bbd544eb0321d6a23536ea, type: 3}
+  aiAmount: 4
   aiMovementSpeed:
-    min: 5
-    max: 8
-  scoreMultiplier: 4
-  scoreLossPlayerHitWall: 10
+    min: 7
+    max: 11
+  scoreMultiplier: 3
+  loseScoreAmount: 10
   endCircuitScoreDuration: 3.74
   endCycleScoreDuration: 5
-  loserSentences:
-  - Argh!
-  - Didn't see the wall ?!
-  - Red doesn't mean rushing into it.
-  - You should stop play video games.
-  winnerSentences:
-  - GG! But you can do better.
-  - Congrats. My little cousin would have done better.
-  - You are impressive
+  playerDeadSentences:
+  - Did you see the wall?
+  - It would be better if you turn on your screen.
+  - This is a deadly wall, not the finish line!
+  playerWinsSentences:
+  - Congrats, my little cousin could have done better.
+  - GG, but you could finish it quicker.
+  aiWinsSentences:
+  - Beaten by an AI, seriously ?
+  - You sould stop play video games.
+  - They are not even human.
+  startCircuitNumberDuration: 0.5
+  startCircuitText:
+  - 3
+  - 2
+  - 1
+  - GO
+  vfxExplosion: {fileID: 4813014152482040030, guid: 92da0559c12070041bb42ab1374eff48, type: 3}
+  playerCarPrefab: {fileID: 8916679402623449723, guid: 73037c46acb32c640b0d7d0d594e94f4, type: 3}
+  modelCarPrefab: {fileID: 5130470242267348589, guid: 4717318d3d6e05f48b6e69530877a778, type: 3}
+  playerCarMaterials:
+  - {fileID: 2100000, guid: 07f44fe3e9c462146a7769b976c50ec4, type: 2}
+  - {fileID: 2100000, guid: d2344366b80fe3d4f886ec412e0174fa, type: 2}
+  - {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  - {fileID: 2100000, guid: 104696f8b5f23d24586d858b68916bdc, type: 2}
+  - {fileID: 2100000, guid: 74196cf5d503c14488ae1ef1dbc6c9a4, type: 2}

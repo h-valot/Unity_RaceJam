@@ -1,27 +1,23 @@
-﻿using UnityEngine;
+﻿using Map;
+using UnityEngine;
 
-namespace Script.AI.Car
+namespace AI.Car
 {
     public class AICar : MonoBehaviour
     {
-        [SerializeField] private bool focusPlayer = false;
+        [Header("REFERENCES")]
         [SerializeField] private Rigidbody rigidBody;
-        [SerializeField] private Transform target;
-
+        
+        [Header("SETTINGS")]
+        [SerializeField] private bool focusPlayer;
+        
+        private Transform _target;
         private Vector3 _direction;
         private float _speed;
-
-        private void Start()
-        {
-            if (rigidBody == null)
-            {
-                rigidBody = this.GetComponent<Rigidbody>();
-            }
-        }
         
         public void OnSightWall(AIStimulusResult aiStimulusResult)
         {
-            foreach (var other in aiStimulusResult.otherTansforms)
+            foreach (Transform other in aiStimulusResult.otherTansforms)
             {
                 this._direction -= other.position - this.transform.position;
             }
@@ -31,18 +27,18 @@ namespace Script.AI.Car
         
         public void OnSightPlayer(AIStimulusResult aiStimulusResult)
         {
-            if (this.focusPlayer)
+            // exit, if the ai doesn't focus the player
+            if (!this.focusPlayer) return;
+            
+            foreach (Transform other in aiStimulusResult.otherTansforms)
             {
-                foreach (var other in aiStimulusResult.otherTansforms)
+                if (!this.focusPlayer)
                 {
-                    if (!this.focusPlayer)
-                    {
-                        this._direction += other.position - this.transform.position;
-                    }
-                    else
-                    {
-                        this._direction -= other.position - this.transform.position;
-                    }
+                    this._direction += other.position - this.transform.position;
+                }
+                else
+                {
+                    this._direction -= other.position - this.transform.position;
                 }
             }
         }
@@ -52,38 +48,50 @@ namespace Script.AI.Car
             this.OnSightWall(aiStimulusResult);
         }
 
-        private void LookAtNextPosition()
-        {
-            this.transform.LookAt(this.rigidBody.velocity);
-            var eulerAngles = this.transform.rotation.eulerAngles;
-            eulerAngles.x = 0.0f;
-            eulerAngles.z = 0.0f;
-            this.transform.rotation = Quaternion.Euler(eulerAngles);
-        }
-
         private void FixedUpdate()
         {
-            this._direction += (target.position - this.transform.position).normalized;
-            
-            this._direction.y = 0.0f;
-            this.rigidBody.velocity = this._direction * _speed;
+            _direction = Vector3.zero;
+            _direction += (_target.position - transform.position).normalized;
+            _direction.y = 0f;
 
-            this.LookAtNextPosition();
-
-            this._direction = Vector3.zero;
+            rigidBody.velocity = _direction * _speed;
+            LookAt(_direction);
         }
 
+        private void LookAt(Vector3 direction)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+        
+        /// <summary>
+        /// Sets ai direction target to the given one
+        /// </summary>
         public void UpdateTarget(Transform newTarget)
         {
-            this.target = newTarget;
+            _target = newTarget;
         }
 
         /// <summary>
-        /// Set the ai car speed to a random value between a min and a max set in the game config.
+        /// Sets the ai car speed to a random value between a min and a max set in the game config.
         /// </summary>
         public void SetSpeed()
         {
-            this._speed = Registry.gameConfig.aiMovementSpeed.GetValue();
+            _speed = Registry.gameConfig.aiMovementSpeed.GetValue();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            // exit, if the collided object isn't a cell
+            if (!other.TryGetComponent<Cell>(out var cell) || cell == null) return;
+            
+            // ends circuit if an ai ends it
+            if (cell.isFinishCell)
+            {
+                Events.onCircuitEnded?.Invoke(EndSituation.AI_WINS);
+                return;
+            }
+            
+            UpdateTarget(cell.mapManager.currentMap.GetNextCellTransform(cell.place, 1));
         }
     }
 }

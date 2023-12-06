@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Script.AI
+namespace AI
 {
     public class AIStimulusSource : MonoBehaviour
     {
