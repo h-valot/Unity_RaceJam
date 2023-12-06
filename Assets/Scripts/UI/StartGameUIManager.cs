@@ -15,10 +15,10 @@ namespace UI
 
         public void Initialize()
         {
-            graphicsParent.SetActive(true);
+            graphicsParent.transform.DOScale(Vector3.one, 0).SetUpdate(true);
         }
 
-        public async void AnimateStart()
+        public async Task AnimateStart()
         {
             circleAnimationImage.DOFillAmount(1, Registry.gameConfig.startCircuitNumberDuration * Registry.gameConfig.startCircuitText.Length).SetUpdate(true);
 
@@ -28,9 +28,9 @@ namespace UI
                 await Task.Delay(Mathf.RoundToInt(1000 * Registry.gameConfig.startCircuitNumberDuration));
             }
             
-            graphicsParent.SetActive(false);
-            circleAnimationImage.gameObject.SetActive(false);
-            counterTM.gameObject.SetActive(false);
+            graphicsParent.transform.DOScale(Vector3.zero, 0).SetUpdate(true);
+            circleAnimationImage.transform.DOScale(Vector3.zero, 0).SetUpdate(true);
+            counterTM.transform.DOScale(Vector3.zero, 0).SetUpdate(true);
         }
     }
 }

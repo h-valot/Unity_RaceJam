@@ -23,12 +23,12 @@ public class StartGameManager : MonoBehaviour
         scoreManager.Initialize();
     }
 
-    public void StartGame()
+    public async void StartGame()
     {        
         startGameUIManager.Initialize();
         
         Time.timeScale = 0f;
-        startGameUIManager.AnimateStart();
+        await startGameUIManager.AnimateStart();
         Time.timeScale = 1;
     }
 
