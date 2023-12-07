@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputPlayer : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class InputPlayer : MonoBehaviour
     public float verticalInput { get; private set; }
     
     private ControlMode _control;
+
+    public UnityEvent PressedEscapeKey;
 
     private enum ControlMode
     {
@@ -26,6 +29,11 @@ public class InputPlayer : MonoBehaviour
                 horizontalInput = Input.GetAxis("Joystick Horizontal");
                 break;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PressedEscapeKey.Invoke();
+        }
     }
 
     /// <summary>
@@ -35,4 +43,6 @@ public class InputPlayer : MonoBehaviour
     {
         return horizontalInput != 0 || verticalInput != 0;
     }
+    
+    
 }
