@@ -1,3 +1,4 @@
+using System;
 using Map;
 using UnityEngine;
 
@@ -9,6 +10,12 @@ namespace Car
         [SerializeField] private InputPlayer inputPlayer;
         [SerializeField] private CarMovement carMovement;
         [SerializeField] public CarGraphics carGraphics;
+        private GameManager _gameManager;
+
+        private void Start()
+        {
+            _gameManager = FindObjectOfType<GameManager>();
+        }
 
         private void Update()
         {
@@ -35,6 +42,12 @@ namespace Car
             {
                 Events.onCircuitEnded?.Invoke(EndSituation.PLAYER_WINS);
             }
+        }
+
+
+        public void DisplayPauseMenu()
+        {
+            _gameManager.DisplayPauseGame();
         }
     }
 }

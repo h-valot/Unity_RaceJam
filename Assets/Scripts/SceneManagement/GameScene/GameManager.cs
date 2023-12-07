@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     [Header("REFERENCES")]
     public StartGameManager startGameManager;
     public EndGameManager endGameManager;
+    [SerializeField] private GameObject _pauseUI;
     
     private void Start()
     {
@@ -20,5 +21,20 @@ public class GameManager : MonoBehaviour
         endGameManager.Initialize();
         
         startGameManager.StartGame();
+    }
+
+
+    public void DisplayPauseGame()
+    {
+        if (_pauseUI.activeSelf)
+        {
+            _pauseUI.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            _pauseUI.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }
