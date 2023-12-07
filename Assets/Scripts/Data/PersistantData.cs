@@ -7,7 +7,7 @@ namespace Data
         public int highestScore;
         public int raceAmount;
         public int carMaterialIndex;
-        public float musicSound = 100;
-        public float effectSound = 100;
+        public float musicSound = 1;
+        public float effectSound = 1;
     }
 }

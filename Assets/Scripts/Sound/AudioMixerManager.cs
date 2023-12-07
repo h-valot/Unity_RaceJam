@@ -7,16 +7,12 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 
-public class SoundManager : MonoBehaviour
+public class AudioMixerManager : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
-    [SerializeField] private Slider _sliderMusic;
-    [SerializeField] private Slider _sliderEffect;
-    private void Start()
+    private void Awake()
     {
         DataManager.Load();
-        _sliderMusic.value = DataManager.data.musicSound;
-        _sliderEffect.value = DataManager.data.effectSound;
         
         if (DataManager.data.musicSound == 0)
         {
@@ -43,6 +39,7 @@ public class SoundManager : MonoBehaviour
         {
             _audioMixer.SetFloat("MusicVolume", -80);
         }
+        DataManager.Save();
     }
     
     public void SetEffectVolume(float value)
@@ -55,5 +52,6 @@ public class SoundManager : MonoBehaviour
         {
             _audioMixer.SetFloat("EffectVolume", -80);
         }
+        DataManager.Save();
     }
 }
